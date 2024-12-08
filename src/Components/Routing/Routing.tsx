@@ -1,5 +1,8 @@
 import {Route, Routes} from "react-router-dom";
 import {Login} from "../Login/Login.tsx";
+import {AdminHome} from "../Home/AdminHome.tsx";
+import {CompanyHome} from "../Home/CompanyHome.tsx";
+import {CustomerHome} from "../Home/CustomerHome.tsx";
 
 export function Routing(): JSX.Element {
     return (
