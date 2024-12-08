@@ -10,4 +10,5 @@ export class Company {
         this.name = name;
         this.email = email;
     }
+
 }

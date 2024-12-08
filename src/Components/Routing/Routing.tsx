@@ -1,16 +1,21 @@
 import {Route, Routes} from "react-router-dom";
 import {Login} from "../Login/Login.tsx";
 import {AdminHome} from "../Home/AdminHome.tsx";
-import {CompanyHome} from "../Home/CompanyHome.tsx";
+import {CompanyHome} from "../Coupany/CompanyHome.tsx";
 import {CustomerHome} from "../Home/CustomerHome.tsx";
+import {CouponEdit} from "../Coupany/CouponEdit.tsx";
 
 export function Routing(): JSX.Element {
     return (
         <Routes>
             <Route path = "/" Component={Login}/>
-            <Route path = "/admin/home" Component={AdminHome}/>
-            <Route path = "/company/home" Component={CompanyHome}/>
-            <Route path = "/customer/home" Component={CustomerHome}/>
+            <Route path = "/admin" Component={AdminHome}/>
+
+
+            <Route path = "/company" Component={CompanyHome}/>
+            <Route path="/coupon/:id" Component={CouponEdit}/>
+
+            <Route path = "/customer" Component={CustomerHome}/>
         </Routes>
     );
 }
