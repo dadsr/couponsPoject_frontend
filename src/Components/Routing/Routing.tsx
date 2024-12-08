@@ -10,12 +10,10 @@ export function Routing(): JSX.Element {
         <Routes>
             <Route path = "/" Component={Login}/>
             <Route path = "/admin" Component={AdminHome}/>
-
-
-            <Route path = "/company" Component={CompanyHome}/>
+            <Route path = "/company/:id" Component={CompanyHome}/>
             <Route path="/coupon/:id" Component={CouponEdit}/>
 
-            <Route path = "/customer" Component={CustomerHome}/>
+            <Route path = "/customer/:id" Component={CustomerHome}/>
         </Routes>
     );
 }

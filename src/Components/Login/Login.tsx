@@ -1,16 +1,19 @@
 import "./Login.css";
-import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
+import React, {useState} from "react";
 import authServices from "../../Services/AuthServices.ts";
+import {DecodeToken} from "../../Services/DecodeToken.ts";
+
 
 export function Login(): JSX.Element {
-   const navigate = useNavigate(); // Move useNavigate to top level
+    const navigate = useNavigate(); // Move useNavigate to top level
 
     const [loginFormData, setLoginFormData] = useState({
         email: "",
         password: "",
         role: "",
     });
+
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -24,30 +27,31 @@ export function Login(): JSX.Element {
         event.preventDefault();
         const { email, password, role } = loginFormData;
 
-        authServices
-            .Login(email, password, role)
+        authServices.Login(email, password, role)
             .then((token) => {
                 localStorage.setItem("token", token);
                 alert("Login successful!"+token);
-                 switch (role) {
-                     case "ADMINISTRATOR":
+                switch (role) {
+                    case "ADMINISTRATOR":
                         navigate("/admin");
-                         break;
-                    case "COMPANY":
-                        navigate("/company");
                         break;
-                    case "CUSTOMER":
-                        navigate("/customer");
+                    case "COMPANY":{
+                        navigate("/company/"+ DecodeToken.decode(token)?.id);
                         break;
+                    }
+                    case "CUSTOMER":{
+                        navigate("/customer/"+ DecodeToken.decode(token)?.id);
+                        break;
+                    }
+
                     default:
                         console.error("Unknown role");
-                 }
+                }
             })
-           .catch((error) => {
-               console.error("Login failed:", error);
+            .catch((error) => {
+                console.error("Login failed:", error);
                 alert("Login failed. Please check your credentials.");
             });
-
     };
 
     return (

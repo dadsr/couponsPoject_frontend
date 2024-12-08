@@ -11,9 +11,9 @@ export function CouponCard(props:couponProps): JSX.Element {
     const navigate =useNavigate()
 
     return (
-        <div className="CouponCard" onClick={() => navigate("/coupon/"+props.coupon.id)}>
-            <h1>Coupon id: {props.coupon.id}</h1>
-            <h2>title: {props.coupon.title}</h2>
+        <div className="CouponCard" onClick={() => navigate("/coupon/" + props.coupon.id)}>
+            <h2>{props.coupon.title}</h2>
+            <p>id: {props.coupon.id}</p>
             <p>description: {props.coupon.description}</p>
             <p>category: {props.coupon.category}</p>
             <p>startDate: {props.coupon.startDate}</p>
