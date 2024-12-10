@@ -1,0 +1,49 @@
+#root{
+    background-color: antiquewhite;
+}
+.login-form {
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Added to center content horizontally */
+    height: 550px; /* Corrected spelling from "hight" to "height" */
+    width: 40%;
+    max-width: 500px; /* Added to ensure responsiveness on smaller screens */
+    padding: 5.5rem;
+    margin: auto; /* Centers the form on the page */
+    border-radius: 250px; /* Adds rounded corners for better aesthetics */
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 50); /* Adds a subtle shadow for a pop-out effect */
+}
+
+.login-form label {
+    margin-bottom: 0.5rem;
+    font-size: 1rem; /* Ensures consistent label size */
+    color: #333; /* Improves contrast for readability */
+}
+
+.login-form input,
+.login-form select {
+    width: 70%; /* Ensures inputs and selects span full width of the form */
+    padding: 0.75rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc; /* Adds a border for better visibility */
+    border-radius: 5px; /* Matches form's rounded corners */
+    font-size: 1rem;
+}
+
+.login-form button {
+    width: 50%; /* Maintains button size relative to the form width */
+    background-color: royalblue;
+    color: white; /* Ensures text is visible on the button */
+    padding: 0.75rem;
+    margin-top: 1rem; /* Adjusted margin for better spacing */
+    border: none;
+    border-radius: 5px; /* Matches other elements' rounded corners */
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background-color: darkblue; /* Adds hover effect for better interactivity */
+}

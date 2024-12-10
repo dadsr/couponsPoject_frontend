@@ -1,4 +1,4 @@
-import Category from "./CategoryColors.tsx";
+import {Category} from "./CategoryColors.tsx";
 
 export class Coupon {
     id:number;

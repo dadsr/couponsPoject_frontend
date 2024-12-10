@@ -11,10 +11,13 @@ import {useParams} from "react-router-dom";
 export function CompanyHome(): JSX.Element {
     const params = useParams();
     const id = Number(params.id);
+
     const[company, setCompany] = useState<Company>();
     const[coupons, setCoupons] = useState<Coupon[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
+        setLoading(true);
         companyServices.getCompany(id)
             .then(res =>{
                 setCompany(res);
@@ -24,13 +27,24 @@ export function CompanyHome(): JSX.Element {
                     })
                     .catch(err => alert(err));
             })
-            .catch(res => console.log(res));
-    },[]);
+            .catch(res => console.log(res))
+            .finally(() => setLoading(false));
+    },[id]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (!company) {
+        return <div>Error: Company not found</div>;
+    }
     return (
-        <div className="CompanyHome">
-            {
-                coupons.map(coupon => (<CouponCard key= {coupon.id} coupon= {coupon} company={company!} />))
-            }
-        </div>
+        <>
+            <div className="CompanyHome">
+                {
+                    coupons.map(coupon => (<CouponCard key= {coupon.id} coupon= {coupon} company={company} />))
+                }
+            </div>
+        </>
     );
 }
