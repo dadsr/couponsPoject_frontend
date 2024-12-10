@@ -1,4 +1,3 @@
-import "../Home/Home.css";
 import {useEffect, useState} from "react";
 import {Coupon} from "../../Models/Coupon.ts";
 import companyServices from "../../Services/CompanyServices.ts";

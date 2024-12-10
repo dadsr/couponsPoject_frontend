@@ -1,4 +1,3 @@
-import "../Home/Home.css";
 
 export function CustomerHome(): JSX.Element {
     return (
