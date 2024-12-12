@@ -2,7 +2,7 @@ import "./Css/CompanyCouponCard.css";
 import {Company} from "../../Models/Company.ts";
 import {Coupon} from "../../Models/Coupon.ts";
 import {useNavigate} from "react-router-dom";
-import categoryColors from "../../Models/CategoryColors.tsx";
+import categoryColors from "../../Models/CategoryEnum.tsx";
 
 interface couponProps {
     coupon: Coupon;
@@ -14,6 +14,7 @@ export function CompanyCouponCard(props: couponProps): JSX.Element {
     const navigate = useNavigate()
 
     const handleClick = () => {
+        props.coupon.companyId = props.company.id;
         navigate("/coupon/" + props.coupon.id,{state: { couponData: props.coupon }})
     };
 
@@ -29,6 +30,7 @@ export function CompanyCouponCard(props: couponProps): JSX.Element {
                 <p>price {props.coupon.price}</p>
                 <p>amount: {props.coupon.amount}</p>
                 <p>company: {props.company.name}</p>
+                <p>image: {props.coupon.image}</p>
             </div>
         </div>
     );

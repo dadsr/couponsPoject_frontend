@@ -1,12 +1,13 @@
 import "./Css/CompanyHome.css"
-import {useEffect, useState} from "react";
 import {Coupon} from "../../Models/Coupon.ts";
 import companyServices from "../../Services/CompanyServices.ts";
 import {Company} from "../../Models/Company.ts";
 import {CompanyCouponCard} from "./CompanyCouponCard.tsx";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 export function CompanyHome(): JSX.Element {
+    const navigate = useNavigate();
     const params = useParams();
     const id = Number(params.id);
 
@@ -38,13 +39,24 @@ export function CompanyHome(): JSX.Element {
     if (!company) {
         return <div>Error: Company not found</div>;
     }
+
+    const handleNewCoupon = () => {
+        const temp = new Coupon(0,"","",company.id,"DEFAULT", 0,0,"","","");
+        navigate("/coupon/" + 0,{state: { couponData: temp }});
+    };
+
     return (
+        <>
+            <button title="New" onClick={handleNewCoupon}>New Coupon</button>
+
             <div className="CompanyHome">
                 {
                     coupons.map(coupon => (
-                        <CompanyCouponCard key= {coupon.id} coupon= {coupon} company={company} />
+                        <CompanyCouponCard key={coupon.id} coupon={coupon} company={company}/>
                     ))
                 }
             </div>
+
+        </>
     );
 }

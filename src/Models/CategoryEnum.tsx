@@ -1,4 +1,5 @@
 const CategoryColors ={
+    'DEFAULT': 'rgba(0,0,0,0)',
     'ELECTRONICS': 'rgba(242,12,105,0.1)',
     'FASHION': 'rgba(55,61,235,0.1)',
     'FOOD': 'rgba(172,214,12,0.1)',
