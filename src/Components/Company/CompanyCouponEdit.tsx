@@ -1,6 +1,6 @@
 
 
-export function CouponEdit(): JSX.Element {
+export function CompanyCouponEdit(): JSX.Element {
     return (
         <div className="CouponCard">
 

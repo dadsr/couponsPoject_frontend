@@ -1,9 +1,10 @@
+import "./Css/AdminHome.css";
 import {useEffect, useState} from "react";
 import {Company} from "../../Models/Company.ts";
 import {useParams} from "react-router-dom";
 import administratorServices from "../../Services/AdministratorServices.ts";
-import {CompanyCard} from "./CompanyCard.tsx";
-import {CustomerCard} from "./CustomerCard.tsx";
+import {AdminCompanyCard} from "./AdminCompanyCard.tsx";
+import {AdminCustomerCard} from "./AdminCustomerCard.tsx";
 import {Customer} from "../../Models/Customer.ts";
 
 
@@ -42,17 +43,16 @@ export function AdminHome(): JSX.Element {
     }
     return (
         <>
-            <div className="AdminHome">
-                <div className="CompaniesList">
-                    {
-                        companies.map((company) => (<CompanyCard key={company.id} company={company}/>))
-                    }
-                </div>
-                <div className="CustomersList">
-                    {
-                        customers.map(customer => (<CustomerCard key={customer.id} customer={customer}/>))
-                    }
-                </div>
+            <div className="CompaniesList">
+                {
+                    companies.map((company) => (<AdminCompanyCard key={company.id} company={company}/>))
+                }
+            </div>
+
+            <div className="CustomersList">
+                {
+                    customers.map(customer => (<AdminCustomerCard key={customer.id} customer={customer}/>))
+                }
             </div>
         </>
     );

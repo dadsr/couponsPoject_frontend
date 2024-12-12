@@ -1,8 +1,7 @@
 .CompanyHome{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    background-color: coral;
-    color: white;
+    display: flex; /* Enables horizontal layout */
+    gap: 16px; /* Adds space between items */
+    overflow-x: auto; /* Allows horizontal scrolling */
+    padding: 16px; /* Optional: Adds padding around the container */
+    scroll-behavior: smooth; /* Smooth scrolling effect */
 }

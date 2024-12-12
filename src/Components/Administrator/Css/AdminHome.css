@@ -1,0 +1,10 @@
+.CompaniesList,.CustomersList {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    flex-direction: row;
+    border: #1a1a1a solid 1px;
+    scroll-behavior: smooth;
+
+}
+

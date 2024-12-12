@@ -1,0 +1,7 @@
+.AdminCompanyCard,.AdminCustomerCard{
+    min-width: 200px; /* Ensures each card has a fixed width */
+    flex-shrink: 0; /* Prevents cards from shrinking */
+    border: 1px solid #ccc; /* Optional: Adds a border for the cards */
+    border-radius: 8px; /* Optional: Rounds the corners of the cards */
+    padding: 16px; /* Optional: Adds padding inside the cards */
+}

@@ -7,7 +7,7 @@ interface couponProps {
     company: Company;
 }
 
-export function CouponCard(props:couponProps): JSX.Element {
+export function CompanyCouponCard(props:couponProps): JSX.Element {
     const navigate =useNavigate()
 
     return (

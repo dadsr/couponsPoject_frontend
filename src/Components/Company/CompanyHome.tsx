@@ -2,10 +2,8 @@ import {useEffect, useState} from "react";
 import {Coupon} from "../../Models/Coupon.ts";
 import companyServices from "../../Services/CompanyServices.ts";
 import {Company} from "../../Models/Company.ts";
-import {CouponCard} from "./CouponCard.tsx";
+import {CompanyCouponCard} from "./CompanyCouponCard.tsx";
 import {useParams} from "react-router-dom";
-
-
 
 export function CompanyHome(): JSX.Element {
     const params = useParams();
@@ -41,7 +39,7 @@ export function CompanyHome(): JSX.Element {
         <>
             <div className="CompanyHome">
                 {
-                    coupons.map(coupon => (<CouponCard key= {coupon.id} coupon= {coupon} company={company} />))
+                    coupons.map(coupon => (<CompanyCouponCard key= {coupon.id} coupon= {coupon} company={company} />))
                 }
             </div>
         </>
