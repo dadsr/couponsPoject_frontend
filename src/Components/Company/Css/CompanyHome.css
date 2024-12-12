@@ -1,7 +1,8 @@
-.CompanyHome{
-    display: flex; /* Enables horizontal layout */
-    gap: 16px; /* Adds space between items */
-    overflow-x: auto; /* Allows horizontal scrolling */
-    padding: 16px; /* Optional: Adds padding around the container */
-    scroll-behavior: smooth; /* Smooth scrolling effect */
+.CompanyHome {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    flex-direction: row;
+    border: #1a1a1a solid 1px;
+    scroll-behavior: smooth;
 }

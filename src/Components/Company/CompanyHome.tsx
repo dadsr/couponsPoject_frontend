@@ -1,3 +1,4 @@
+import "./Css/CompanyHome.css"
 import {useEffect, useState} from "react";
 import {Coupon} from "../../Models/Coupon.ts";
 import companyServices from "../../Services/CompanyServices.ts";
@@ -9,20 +10,22 @@ export function CompanyHome(): JSX.Element {
     const params = useParams();
     const id = Number(params.id);
 
-    const[company, setCompany] = useState<Company>();
+    const[company, setCompany] = useState<Company  | null>(null);
     const[coupons, setCoupons] = useState<Coupon[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         setLoading(true);
-        companyServices.getCompany(id)
+
+        companyServices
+            .getCompany(id)
             .then(res =>{
                 setCompany(res);
-                companyServices.getCoupons(res.id)
-                    .then(res => {
-                        setCoupons(res);
-                    })
-                    .catch(err => alert(err));
+                return companyServices.getCoupons(res.id)
+            })
+            .then((couponsRes) =>{
+                setCoupons(couponsRes)
+
             })
             .catch(res => console.log(res))
             .finally(() => setLoading(false));
@@ -36,12 +39,12 @@ export function CompanyHome(): JSX.Element {
         return <div>Error: Company not found</div>;
     }
     return (
-        <>
             <div className="CompanyHome">
                 {
-                    coupons.map(coupon => (<CompanyCouponCard key= {coupon.id} coupon= {coupon} company={company} />))
+                    coupons.map(coupon => (
+                        <CompanyCouponCard key= {coupon.id} coupon= {coupon} company={company} />
+                    ))
                 }
             </div>
-        </>
     );
 }

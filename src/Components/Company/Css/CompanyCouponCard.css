@@ -1,0 +1,8 @@
+.card-inner {
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 230px;
+    overflow: hidden;
+    transition: transform 0.2s;
+    padding: 5px;
+}
