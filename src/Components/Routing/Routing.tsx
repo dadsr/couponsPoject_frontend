@@ -8,7 +8,7 @@ import {CompanyCouponEdit} from "../Company/CompanyCouponEdit.tsx";
 export function Routing(): JSX.Element {
     return (
         <Routes>
-            <Route path = "/login" Component={Login}/>
+            <Route path = "/" Component={Login}/>
             <Route path = "/admin" Component={AdminHome}/>
             <Route path = "/company/:id" Component={CompanyHome}/>
             <Route path="/coupon/:id" Component={CompanyCouponEdit}/>

@@ -3,6 +3,8 @@ import {Company} from "../Models/Company.ts";
 import {Coupon} from "../Models/Coupon.ts";
 import {BASE_URL} from "../constants.ts";
 
+//todo get exseptions
+//todo transfer to DTO
 export class CompanyServices{
 
     async getCompany(id: number){

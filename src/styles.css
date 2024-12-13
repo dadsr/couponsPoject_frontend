@@ -1,0 +1,37 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+#root {
+    height: 100%;
+    display: flex;
+    flex-direction: column; /* Header at the top, content below */
+}
+header {
+    height: 60px; /* Fixed height for the header */
+    background-color: rgba(54,43,242,0.69);
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.app-container {
+    display: flex; /* Sidebar and content side by side */
+    flex-grow: 1; /* Ensures it fills remaining space */
+}
+.sidebar {
+    width: 200px; /* Fixed width */
+    background-color: rgba(54,43,242,0.69);
+    height: 100%; /* Full height of its container (below the header) */
+}
+
+.content {
+    margin-left: 220px; /* Adjust based on sidebar width */
+    padding: 20px;
+    background-color: rgba(160,224,242,0.41);
+    flex-grow: 1; /* Fills remaining space */
+}
