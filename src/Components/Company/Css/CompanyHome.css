@@ -1,7 +1,7 @@
 .CompanyHome {
     display: flex;
     gap: 16px;
-    overflow-x: auto;
+    overflow-x: scroll;
     flex-direction: row;
     border: #1a1a1a solid 1px;
     scroll-behavior: smooth;

@@ -13,6 +13,12 @@ export class CustomerServices{
         return (await axios.get<Coupon[]>(`${BASE_URL}/cus/customer/${customerId}/coupons/`,{headers: {Authorization: "Bearer" + localStorage.token}})).data;
     }
 
+    //todo setting  on server side
+    //Receiving coupons that can be purchased
+    async getCouponsToPurchase(customerId: number){
+        return (await axios.get<Coupon[]>(`${BASE_URL}/cus/customer/${customerId}/coupons_to purchase/`,{headers: {Authorization: "Bearer" + localStorage.token}})).data;
+    }
+
     async couponPurchase( customerId: number,couponId: number){
         return (await axios.post(`${BASE_URL}/cus//customer/${customerId}/coupon/${couponId}`,{headers: {Authorization: "Bearer" + localStorage.token}}))
     }

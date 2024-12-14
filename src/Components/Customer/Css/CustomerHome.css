@@ -1,7 +1,8 @@
-.CustomerHome{
+.CustomerCoupons,.PurchaseCoupons{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
+    gap: 16px;
+    overflow-x: scroll;
+    flex-direction: row;
+    border: #1a1a1a solid 1px;
+    scroll-behavior: smooth;
 }

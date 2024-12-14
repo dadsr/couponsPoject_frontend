@@ -1,8 +1,9 @@
 
-.CustomerCouponCard {
-    min-width: 200px; /* Ensures each card has a fixed width */
-    flex-shrink: 0; /* Prevents cards from shrinking */
-    border: 1px solid #1a1a1a; /* Optional: Adds a border for the cards */
-    border-radius: 8px; /* Optional: Rounds the corners of the cards */
-    padding: 16px; /* Optional: Adds padding inside the cards */
+.card-inner {
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 230px;
+    overflow: hidden;
+    transition: transform 0.2s;
+    padding: 5px;
 }

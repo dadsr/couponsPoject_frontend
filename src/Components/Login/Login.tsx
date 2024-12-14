@@ -64,7 +64,7 @@ export function Login(): JSX.Element {
 
             <label>Password:</label>
             <input type="password" name="password" value={loginFormData.password} onChange={handleChange} required/>
-            <fieldset>
+            <fieldset className="role-radio">
                 <legend>Your Role</legend>
                 <input type="radio" name="role" value="ADMINISTRATOR" checked={loginFormData.role === "ADMINISTRATOR"}
                        onChange={handleChange}/>Administrator<br/>

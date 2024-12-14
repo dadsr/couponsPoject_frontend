@@ -35,7 +35,7 @@ export function CompanyHome(): JSX.Element {
             })
             .catch(res => console.log(res))
             .finally(() => {
-                setLoading(false);
+                    setLoading(false);
                 }
             );
     },[id]);
@@ -43,8 +43,6 @@ export function CompanyHome(): JSX.Element {
     if (loading) {
         return <div>Loading...</div>;
     }
-
-
 
     if (!company) {
         return <div>Error: Company not found</div>;

@@ -20,7 +20,7 @@ export function Header(): JSX.Element {
                 ) : (
                     <button
                         onClick={() => {
-                            window.location.href = "/login"; // Redirect to the login page
+                            window.location.href = "/"; // Redirect to the login page
                         }}
                         className="login-button"
                     >
