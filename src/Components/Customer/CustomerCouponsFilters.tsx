@@ -5,11 +5,11 @@ import CategoryColors from "../../Models/CategoryEnum.tsx";
 
 interface SetProps {
     coupons: Coupon[];
-    setCoupons: React.Dispatch<React.SetStateAction<Coupon[]>>;
+    setFilteredCoupons: React.Dispatch<React.SetStateAction<Coupon[]>>;
 }
 
 export function CustomerCouponsFilters(props: SetProps): JSX.Element {
-    const [selectedFilter, setSelectedFilter] = useState<string>("All");
+    const [selectedFilter, setSelectedFilter] = useState("All");
     const [maxPrice, setMaxPrice] = useState<number | undefined>();
     const [category, setCategory] = useState<string>("DEFAULT");
 
@@ -45,31 +45,39 @@ export function CustomerCouponsFilters(props: SetProps): JSX.Element {
             filteredCoupons = filteredCoupons.filter(coupon => coupon.price <= maxPrice);
         }
 
-        props.setCoupons(filteredCoupons);
+        props.setFilteredCoupons(filteredCoupons);
     };
 
     return (
         <div className="CustomerCouponsFilters">
             <fieldset className="filters-radio">
                 <label className="custom-radio">
-                    <input type="radio" name="filter" value="All" checked={selectedFilter === "All"}
+                    <input type="radio"
+                           value="All"
+                           checked={selectedFilter === "All"}
                            onChange={handleRadioChange}
                     /> Show All <br/>
                 </label>
                 <label className="custom-radio">
-                    <input type="radio" name="filter" value="ByCategory" checked={selectedFilter === "ByCategory"}
+                    <input type="radio"
+                           value="ByCategory"
+                           checked={selectedFilter === "ByCategory"}
                            onChange={handleRadioChange}
                     /> By Category <br/>
                 </label>
                 <label className="custom-radio">
-                    <input type="radio" name="filter" value="ByMaxPrice" checked={selectedFilter === "ByMaxPrice"}
+                    <input type="radio"
+                           value="ByMaxPrice"
+                           checked={selectedFilter === "ByMaxPrice"}
                            onChange={handleRadioChange}
                     /> By Max Price <br/>
                 </label>
             </fieldset>
 
             {selectedFilter === "ByCategory" && (
-                <select name="category" value={category} onChange={handleSelectChange}>
+                <select name="category"
+                        value={category}
+                        onChange={handleSelectChange}>
                     {category === "DEFAULT" && <option value="" disabled>--Select a category--</option>}
                     {Object.keys(CategoryColors)
                         .filter(cat => cat !== "DEFAULT")
