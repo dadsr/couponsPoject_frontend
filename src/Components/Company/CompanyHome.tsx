@@ -54,15 +54,13 @@ export function CompanyHome(): JSX.Element {
     };
 
     setSidebarData( {
-        mode: ModesEnum.COMP_COUPONS,
-        buttons: <button title="New" onClick={handleNewCoupon}>New Coupon</button>,
-        cards: (
-            <>
-                {coupons.map(coupon => (
-                    <CompanyCouponCard key={coupon.id} coupon={coupon} company={company!} />
-                ))}
-            </>
-        )
+        mode: ModesEnum.COMP_DETAILS,
+        buttons:<></>,
+        cards: <div>
+            <h2>Company</h2>
+            <p>name: {company?.name}</p>
+            <p>email: {company?.email}</p>
+        </div>
     });
 
 

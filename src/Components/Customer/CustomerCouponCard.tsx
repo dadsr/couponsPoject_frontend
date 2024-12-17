@@ -39,7 +39,7 @@ export function CustomerCouponCard(props:couponProps): JSX.Element {
         return <div>{error}</div>;
     }
     return (
-        <div className="CustomerCouponCard" style={{backgroundColor}}  >
+        <div className="CustomerCouponCard"  style={{backgroundColor}}  >
                 <div className="card-inner" onClick={handleClick}>
                     <h2>{props.coupon.title}</h2>
                     <p>id: {props.coupon.id}</p>

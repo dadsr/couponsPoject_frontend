@@ -6,6 +6,8 @@ import {CustomerCouponCard} from "./CustomerCouponCard.tsx";
 import {Customer} from "../../Models/Customer.ts";
 import {CustomerCouponsFilters} from "./CustomerCouponsFilters.tsx";
 import {useEffect, useState} from "react";
+import {useSidebarContext} from "../../Context/SidebarContext.tsx";
+import ModesEnum from "../../Models/ModesEnum.tsx";
 
 
 export function CustomerHome(): JSX.Element {
@@ -17,12 +19,25 @@ export function CustomerHome(): JSX.Element {
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
+
     const [customer, setCustomer] = useState<Customer | null>(null);
 
     const [customerCoupons, setCustomerCoupons] = useState<Coupon[]>([]);
     const [purchaseCoupons, setPurchaseCoupons] = useState<Coupon[]>([]);
     const [filteredCustomerCoupons, setFilteredCustomerCoupons] = useState<Coupon[]>([]);
     const [filteredPurchaseCoupons, setFilteredPurchaseCoupons] = useState<Coupon[]>([]);
+
+    const { setSidebarData } = useSidebarContext();
+
+
+
+    //for updating coupons list before and after purchase
+    useEffect(() => {
+        setFilteredCustomerCoupons(customerCoupons);
+        setFilteredPurchaseCoupons(purchaseCoupons);
+
+    }, [customerCoupons,purchaseCoupons]);
+
 
 
     const handlePurchaseSuccess = (couponId: number)=> {
@@ -31,8 +46,16 @@ export function CustomerHome(): JSX.Element {
             console.error("Coupon not found in purchaseCoupons");
             return;
         }
-        setCustomerCoupons((prev) => [...prev, purchasedCoupon]);
-        setPurchaseCoupons((prev) => prev.filter(coupon => coupon.id !== couponId));
+        setCustomerCoupons((prev) => {
+            const updated = [...prev, purchasedCoupon];
+            console.log("Updated customer coupons:", updated);
+            return updated;
+        });
+        setPurchaseCoupons((prev) => {
+            const updated = prev.filter(coupon => coupon.id !== couponId);
+            console.log("Updated purchase coupons:", updated);
+            return updated;
+        });
     };
 
     useEffect(() => {
@@ -60,6 +83,17 @@ export function CustomerHome(): JSX.Element {
             });
     },[id]);
 
+    setSidebarData( {
+        mode: ModesEnum.CLINT_DETAILS,
+        buttons:<></>,
+        cards: <div>
+            <h2>client</h2>
+            <p>first name: {customer?.firstName}</p>
+            <p>last name: {customer?.lastName}</p>
+            <p>email: {customer?.email}</p>
+        </div>
+    });
+
     if (isLoading) {
         return <div>Loading...</div>;
     }
@@ -72,10 +106,13 @@ export function CustomerHome(): JSX.Element {
     return <div>{error}</div>;
     }
 
+
+
     return (
         <>
             <div className="CustomerHome">
-                <CustomerCouponsFilters coupons={customerCoupons} setFilteredCoupons={setFilteredCustomerCoupons}/> <br/>
+                <CustomerCouponsFilters  coupons={customerCoupons}
+                                        setFilteredCoupons={setFilteredCustomerCoupons}/> <br/>
                 <div className="CustomerCoupons">
                     {
                         filteredCustomerCoupons.map(coupon => (
@@ -89,7 +126,10 @@ export function CustomerHome(): JSX.Element {
                 </div>
                 <br/>
                 <br/>
-                <CustomerCouponsFilters coupons={purchaseCoupons} setFilteredCoupons={setFilteredPurchaseCoupons}/> <br/>
+                <CustomerCouponsFilters coupons={purchaseCoupons}
+                                        setFilteredCoupons={setFilteredPurchaseCoupons}/> <br/>
+                <h3>click to purchase</h3>
+
                 <div className="PurchaseCoupons">
                     {
                         filteredPurchaseCoupons.map(coupon => (

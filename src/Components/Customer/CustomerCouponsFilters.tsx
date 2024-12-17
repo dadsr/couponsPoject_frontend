@@ -1,6 +1,6 @@
 import "./Css/CustomerCouponsFilters.css"
-import React, { useState } from "react";
-import { Coupon } from "../../Models/Coupon";
+import React, {useState} from "react";
+import {Coupon} from "../../Models/Coupon";
 import CategoryColors from "../../Models/CategoryEnum.tsx";
 
 interface SetProps {
@@ -47,6 +47,7 @@ export function CustomerCouponsFilters(props: SetProps): JSX.Element {
 
         props.setFilteredCoupons(filteredCoupons);
     };
+
 
     return (
         <div className="CustomerCouponsFilters">

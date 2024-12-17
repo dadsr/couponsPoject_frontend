@@ -1,8 +1,12 @@
-.CustomerCoupons,.PurchaseCoupons{
-    display: flex;
-    gap: 16px;
-    overflow-x: scroll;
-    flex-direction: row;
-    border: #1a1a1a solid 1px;
-    scroll-behavior: smooth;
+.CustomerCoupons,
+.PurchaseCoupons {
+    display: flex; /* Align items in a row */
+    gap: 16px; /* Space between items */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden; /* Prevent vertical scrolling */
+    flex-direction: row; /* Ensure items are in a row */
+    border: #1a1a1a solid 1px; /* Add a border */
+    scroll-behavior: smooth; /* Smooth scrolling effect */
+    max-width: 100vw; /* Limit the width to the viewport (screen width) */
+    box-sizing: border-box; /* Include padding and border in width calculations */
 }
