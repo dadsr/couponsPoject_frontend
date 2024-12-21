@@ -10,7 +10,7 @@ import ModesEnum from "../../Models/ModesEnum.tsx";
 import {useSidebarContext} from "../../Context/SidebarContext.tsx";
 
 
-export function CompanyCouponEdit(): JSX.Element {
+export function AdminCustomerEdit(): JSX.Element {
     const location =useLocation();
     const {couponData}  =location.state ;
     const mode = couponData.id ===0?"add":"edit";

@@ -1,6 +1,6 @@
-import "./Css/CustomerCouponsFilters.css"
+import "./CouponsFilters.css"
 import React, {useState} from "react";
-import {Coupon} from "../../Models/Coupon";
+import {Coupon} from "../../Models/Coupon.ts";
 import CategoryColors from "../../Models/CategoryEnum.tsx";
 
 interface SetProps {
@@ -8,7 +8,7 @@ interface SetProps {
     setFilteredCoupons: React.Dispatch<React.SetStateAction<Coupon[]>>;
 }
 
-export function CustomerCouponsFilters(props: SetProps): JSX.Element {
+export function CouponsFilters(props: SetProps): JSX.Element {
     const [selectedFilter, setSelectedFilter] = useState("All");
     const [maxPrice, setMaxPrice] = useState<number | undefined>();
     const [category, setCategory] = useState<string>("DEFAULT");

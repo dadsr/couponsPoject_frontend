@@ -7,6 +7,8 @@ import categoryColors from "../../Models/CategoryEnum.tsx";
 interface couponProps {
     coupon: Coupon;
     company: Company;
+    handleClickMode:  "PURCHASE" | "NOTHING";
+    onSuccess?:(couponId: number) => void;
 }
 
 export function CompanyCouponCard(props: couponProps): JSX.Element {

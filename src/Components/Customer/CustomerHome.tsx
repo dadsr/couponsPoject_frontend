@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom";
 import customerServices from "../../Services/CustomerServices.ts";
 import {CustomerCouponCard} from "./CustomerCouponCard.tsx";
 import {Customer} from "../../Models/Customer.ts";
-import {CustomerCouponsFilters} from "./CustomerCouponsFilters.tsx";
+import {CouponsFilters} from "../Filters/CouponsFilters.tsx";
 import {useEffect, useState} from "react";
 import {useSidebarContext} from "../../Context/SidebarContext.tsx";
 import ModesEnum from "../../Models/ModesEnum.tsx";
@@ -75,7 +75,7 @@ export function CustomerHome(): JSX.Element {
                     });
             })
             .catch((err) => {
-                console.error(err)
+                console.error(err);
                 setError("Failed to load data. Please try again later.");
             })
             .finally(() => {
@@ -83,16 +83,18 @@ export function CustomerHome(): JSX.Element {
             });
     },[id]);
 
-    setSidebarData( {
-        mode: ModesEnum.CLINT_DETAILS,
-        buttons:<></>,
-        cards: <div>
-            <h2>client</h2>
-            <p>first name: {customer?.firstName}</p>
-            <p>last name: {customer?.lastName}</p>
-            <p>email: {customer?.email}</p>
-        </div>
-    });
+    useEffect(() => {
+        setSidebarData( {
+            mode: ModesEnum.CLINT_DETAILS,
+            buttons:<></>,
+            cards: <div>
+                <h2>client</h2>
+                <p>first name: {customer?.firstName}</p>
+                <p>last name: {customer?.lastName}</p>
+                <p>email: {customer?.email}</p>
+            </div>
+        });
+    }, [customer,setSidebarData]);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -103,7 +105,7 @@ export function CustomerHome(): JSX.Element {
     }
 
     if (error) {
-    return <div>{error}</div>;
+        return <div>{error}</div>;
     }
 
 
@@ -111,8 +113,8 @@ export function CustomerHome(): JSX.Element {
     return (
         <>
             <div className="CustomerHome">
-                <CustomerCouponsFilters  coupons={customerCoupons}
-                                        setFilteredCoupons={setFilteredCustomerCoupons}/> <br/>
+                <CouponsFilters coupons={customerCoupons}
+                                setFilteredCoupons={setFilteredCustomerCoupons}/> <br/>
                 <div className="CustomerCoupons">
                     {
                         filteredCustomerCoupons.map(coupon => (
@@ -126,8 +128,8 @@ export function CustomerHome(): JSX.Element {
                 </div>
                 <br/>
                 <br/>
-                <CustomerCouponsFilters coupons={purchaseCoupons}
-                                        setFilteredCoupons={setFilteredPurchaseCoupons}/> <br/>
+                <CouponsFilters coupons={purchaseCoupons}
+                                setFilteredCoupons={setFilteredPurchaseCoupons}/> <br/>
                 <h3>click to purchase</h3>
 
                 <div className="PurchaseCoupons">

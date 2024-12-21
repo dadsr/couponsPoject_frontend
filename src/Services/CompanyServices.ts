@@ -8,23 +8,23 @@ import {BASE_URL} from "../constants.ts";
 export class CompanyServices{
 
     async getCompany(id: number){
-        return (await axios.get<Company>(`${BASE_URL}/com/company/${id}`,{headers: {Authorization: "Bearer" + localStorage.token}})).data;
+        return (await axios.get<Company>(`${BASE_URL}/company/${id}`,{headers: {Authorization: "Bearer" + localStorage.token}})).data;
     }
 
     async getCoupons(companyId: number){
-        return (await axios.get<Coupon[]>(`${BASE_URL}/com/coupons/${companyId}`,{headers: {Authorization: "Bearer" + localStorage.token}})).data;
+        return (await axios.get<Coupon[]>(`${BASE_URL}/company/coupons/${companyId}`,{headers: {Authorization: "Bearer" + localStorage.token}})).data;
     }
 
     async updateCoupon(coupon: Coupon){
-        return (await axios.put(`${BASE_URL}/com/coupon`),coupon,{headers: {Authorization: "Bearer" + localStorage.token}});
+        return (await axios.put(`${BASE_URL}/company/coupon/update`),coupon,{headers: {Authorization: "Bearer" + localStorage.token}});
     }
 
     async addCoupon(coupon: Coupon){
-        return (await axios.post(`${BASE_URL}/com/coupon/add`),coupon,{headers: {Authorization: "Bearer" + localStorage.token}});
+        return (await axios.post(`${BASE_URL}/company/coupon/add`),coupon,{headers: {Authorization: "Bearer" + localStorage.token}});
     }
 
     async deleteCoupon(id: number){
-        return (await axios.delete(`${BASE_URL}/com/coupons/${id}`,{headers: {Authorization: "Bearer" + localStorage.token}}));
+        return (await axios.delete(`${BASE_URL}/company/coupon/${id}/delete`,{headers: {Authorization: "Bearer" + localStorage.token}}));
     }
 
 }

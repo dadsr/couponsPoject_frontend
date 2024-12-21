@@ -1,37 +1,46 @@
 import "./Css/AdminHome.css";
+
+
 import {useEffect, useState} from "react";
 import {Company} from "../../Models/Company.ts";
-import {useParams} from "react-router-dom";
+import {Customer} from "../../Models/Customer.ts";
 import administratorServices from "../../Services/AdministratorServices.ts";
 import {AdminCompanyCard} from "./AdminCompanyCard.tsx";
 import {AdminCustomerCard} from "./AdminCustomerCard.tsx";
-import {Customer} from "../../Models/Customer.ts";
 
 
 export function AdminHome(): JSX.Element {
-    const params = useParams();
-    const id = Number(params.id);
+
+    const [error, setError] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const[companies, setCompanies] = useState<Company[]>([]);
     const[customers, setCustomers] = useState<Customer[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+
 
     useEffect(() => {
-        setLoading(true);
-        //companies
-        administratorServices.getCompanies()
-            .then(res =>{
-                setCompanies(res);
-                //customers
-                administratorServices.getCustomers()
-                    .then(res => setCustomers(res))
-                    .catch(err => console.log(err));
-            })
-            .catch(res => console.log(res))
-            .finally(() => setLoading(false));
-    },[id]);
+        setIsLoading(true);
+        setError(null);
 
-    if (loading) {
+        Promise.all([
+            administratorServices.getCompanies(),
+            administratorServices.getCustomers()
+        ])
+            .then(([companiesData, customersData]) => {
+                setCompanies(companiesData);
+                setCustomers(customersData);
+            })
+            .catch((err) => {
+                console.error(err);
+                setError("Failed to load data. Please try again later.");
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+
+    }, []);
+
+    if (isLoading) {
         return <div>Loading...</div>;
     }
 
@@ -41,14 +50,21 @@ export function AdminHome(): JSX.Element {
     if (!customers) {
         return <div>Error: no customers found</div>;
     }
+    if (error) {
+        return <div>{error}</div>;
+    }
+
     return (
         <>
+            <h3>Companies</h3>
             <div className="CompaniesList">
                 {
                     companies.map((company) => (<AdminCompanyCard key={company.id} company={company}/>))
                 }
             </div>
-
+            <br/>
+            <br/>
+            <h3>Customers</h3>
             <div className="CustomersList">
                 {
                     customers.map(customer => (<AdminCustomerCard key={customer.id} customer={customer}/>))
@@ -56,4 +72,5 @@ export function AdminHome(): JSX.Element {
             </div>
         </>
     );
+
 }
