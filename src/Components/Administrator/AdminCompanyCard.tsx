@@ -11,10 +11,13 @@ export function AdminCompanyCard(props:companyProps): JSX.Element {
     const navigate =useNavigate()
 
     return (
-        <div className="AdminCompanyCard" onClick={() => navigate("/company/" + props.company.id)}>
-            <h2>{props.company.name}</h2>
+        <div className="AdminCompanyCard" onClick={() => navigate("/admin/company/" + props.company.id ,
+        {
+            state: { companyData: props.company },
+        })}>
+            <h2>name: {props.company.name}</h2>
             <p>id: {props.company.id}</p>
-            <p>id: {props.company.email}</p>
+            <p>email: {props.company.email}</p>
         </div>
     );
 }

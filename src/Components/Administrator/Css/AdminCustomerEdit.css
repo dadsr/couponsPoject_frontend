@@ -1,4 +1,4 @@
-.companyEdit-form {
+.customerEdit-form {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -7,16 +7,16 @@
     background-color: #f9f9f9;
 }
 
-.companyEdit-form label {
+.customerEdit-form label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
 }
 
-.companyEdit-form input[type="text"],
-.companyEdit-form input[type="date"],
-.companyEdit-form input[type="number"],
-.companyEdit-form select {
+.customerEdit-form input[type="text"],
+.customerEdit-form input[type="date"],
+.customerEdit-form input[type="number"],
+.customerEdit-form select {
     width: 100%;
     padding: 8px;
     margin-bottom: 16px;
@@ -25,11 +25,11 @@
     box-sizing: border-box;
 }
 
-.companyEdit-form select {
+.customerEdit-form select {
     appearance: none; /* Remove default dropdown arrow */
 }
 
-.companyEdit-form button {
+.customerEdit-form button {
     width: 100%;
     padding: 10px;
     background-color: #007bff;
@@ -40,10 +40,10 @@
     font-size: 16px;
 }
 
-.companyEdit-form button:hover {
+.customerEdit-form button:hover {
     background-color: #0056b3;
 }
 
-.companyEdit-form p {
+.customerEdit-form p {
     margin-bottom: 16px;
 }

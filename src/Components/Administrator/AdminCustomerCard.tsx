@@ -10,7 +10,11 @@ export function AdminCustomerCard(props:customerProps): JSX.Element {
     const navigate =useNavigate()
 
     return (
-        <div className="AdminCustomerCard" onClick={() => navigate("/customer/" + props.customer.id)}>
+        <div className="AdminCustomerCard" onClick={() => navigate("/admin/customer/" + props.customer.id ,
+            {
+                state: { customerData: props.customer },
+            })}>
+
             <h2>{props.customer.firstName} {props.customer.lastName}</h2>
             <p>id: {props.customer.id}</p>
             <p>email: {props.customer.email}</p>

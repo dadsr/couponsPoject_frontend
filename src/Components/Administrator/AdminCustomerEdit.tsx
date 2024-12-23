@@ -1,110 +1,89 @@
-import './Css/CompanyCouponEdit.css';
+import "./Css/AdminCustomerEdit.css";
 
 import React, {useEffect, useState} from "react";
 
 import {useLocation, useNavigate} from "react-router-dom";
-import {Coupon} from "../../Models/Coupon.ts";
-import companyServices from "../../Services/CompanyServices.ts";
-import CategoryColors, {Category} from "../../Models/CategoryEnum.tsx";
 import ModesEnum from "../../Models/ModesEnum.tsx";
 import {useSidebarContext} from "../../Context/SidebarContext.tsx";
+import {Customer} from "../../Models/Customer.ts";
+import administratorServices from "../../Services/AdministratorServices.ts";
 
 
 export function AdminCustomerEdit(): JSX.Element {
     const location =useLocation();
-    const {couponData}  =location.state ;
-    const mode = couponData.id ===0?"add":"edit";
+    const {customerData}  =location.state ;
+    const mode = customerData.id ===0?"add":"edit";
     const navigate = useNavigate();
     const { setSidebarData } = useSidebarContext();
 
 
-    const  [coupon,setCoupon] = useState<Coupon>();
-    const [couponFormData, setCouponFormData] = useState<{
+    const  [customer,setCustomer] = useState<Customer>();
+    const [customerFormData, setCustomerFormData] = useState<{
         id: number;
-        title: string;
-        description: string;
-        companyId: number;
-        category: Category;
-        price: number;
-        amount: number;
-        startDate: string;
-        endDate: string;
-        image: string;
+        firstName: string;
+        lastName: string;
+        email: string;
     }>({
         id: 0,
-        title: "",
-        description: "",
-        companyId: 0,
-        category: "DEFAULT",
-        price: 0,
-        amount: 0,
-        startDate: "",
-        endDate: "",
-        image: "",
+        firstName: "",
+        lastName: "",
+        email: ""
     });
 
 
     useEffect(() => {
-        if (couponData) {
-            setCoupon(couponData);
+        if (customerData) {
+            setCustomer(customerData);
         }
-    }, [couponData]);
+    }, [customerData]);
 
     useEffect(() => {
-        if (couponData) {
-            setCoupon(couponData);
+        if (customerData) {
+            setCustomer(customerData);
         }
-    }, [couponData]);
+    }, [customerData]);
 
     useEffect(() => {
-        if (coupon) {
-            setCouponFormData(prevState => ({
+        if (customer) {
+            setCustomerFormData(prevState => ({
                 ...prevState,
-                id: coupon.id || prevState.id,
-                title: coupon.title || prevState.title,
-                description: coupon.description || prevState.description,
-                companyId:coupon.companyId || prevState.companyId,
-                category: coupon.category || prevState.category,
-                price: coupon.price || prevState.price,
-                amount: coupon.amount || prevState.amount,
-                startDate: coupon.startDate || prevState.startDate,
-                endDate: coupon.endDate || prevState.endDate,
-                image: coupon.image || prevState.image
+                id: customer.id || prevState.id,
+                title: customer.firstName || prevState.firstName,
+                description: customer.lastName || prevState.lastName,
+                companyId:customer.email || prevState.email
             }));
         }
-        const deleteCoupon = () => {
-            if(coupon){
-                companyServices.deleteCoupon(coupon.companyId)
-                .then()
-                .catch()
+        const deleteCustomer = () => {
+            if(customer){
+                administratorServices.deleteCustomer(customer.id)
+                    .then()
+                    .catch()
             }
         };
 
         setSidebarData({
-            mode: ModesEnum.COMP_DETAILS,
+            mode: ModesEnum.CUST_DETAILS,
             buttons: <>
-                <button title="Delete" onClick={deleteCoupon}>Delete Coupon</button>
+                <button title="Delete" onClick={deleteCustomer}>Delete Customer</button>
             </>,
             cards: <div>
-                <h2>Coupon edit</h2>
-                <p>title: {coupon?.title}</p>
-                <p>category: {coupon?.category}</p>
-                <p>price: {coupon?.price}</p>
-                <p>amount: {coupon?.amount}</p>
-                <p>startDate: {coupon?.startDate}</p>
-                <p>endDate: {coupon?.endDate}</p>
+                <h2>Customer edit</h2>
+                <p>id: {customer?.id}</p>
+                <p>firstName: {customer?.firstName}</p>
+                <p>lastName: {customer?.lastName}</p>
+                <p>email: {customer?.email}</p>
             </div>
         });
 
-    }, [coupon, setSidebarData]);
+    }, [customer, setSidebarData]);
 
-    if (!coupon) {
-        return <div>Error: Company not found</div>;
+    if (!customer) {
+        return <div>Error: Customer not found</div>;
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement |HTMLSelectElement>) => {
         const { name, value } = event.target;
-        setCouponFormData((prevData) => ({
+        setCustomerFormData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
@@ -114,88 +93,52 @@ export function AdminCustomerEdit(): JSX.Element {
     const submitEdit= async (event: React.FormEvent) =>{
         event.preventDefault();
 
-        console.log("id:" + coupon.id + "," +
-            "title" + couponFormData.title + "," +
-            "description" + couponFormData.description + "," +
-            "companyId" + couponFormData.companyId + "," +
-            "category" + couponFormData.category + "," +
-            "price" + couponFormData.price + "," +
-            "amount" + couponFormData.amount + "," +
-            "startDate" + couponFormData.startDate + "," +
-            "endDate" + couponFormData.endDate + "," +
-            "image" + couponFormData.image);
+        console.log("id:" + customer.id + "," +
+            "firstName" + customerFormData.firstName + "," +
+            "lastName" + customerFormData.lastName + "," +
+            "email" + customerFormData.email );
 
         switch (mode){
             case "edit":{
-                await companyServices
-                    .updateCoupon(
-                        new Coupon (
-                            coupon.id,
-                            couponFormData.title,
-                            couponFormData.description,
-                            couponFormData.companyId,
-                            couponFormData.category,
-                            couponFormData.price,
-                            couponFormData.amount,
-                            couponFormData.startDate,
-                            couponFormData.endDate,
-                            couponFormData.image
+                await administratorServices
+                    .updateCustomer(
+                        new Customer (
+                            customer.id,
+                            customerFormData.firstName,
+                            customerFormData.lastName,
+                            customerFormData.email
                         )
                     )
                     .catch((error) => console.error("update failed:", error));
             }break;
             case "add":{
-                await companyServices
-                    .addCoupon(
-                        new Coupon (
+                await administratorServices
+                    .addCustomer(
+                        new Customer (
                             0,
-                            couponFormData.title,
-                            couponFormData.description,
-                            couponFormData.companyId,
-                            couponFormData.category,
-                            couponFormData.price,
-                            couponFormData.amount,
-                            couponFormData.startDate,
-                            couponFormData.endDate,
-                            couponFormData.image
+                            customerFormData.firstName,
+                            customerFormData.lastName,
+                            customerFormData.email
                         )
                     )
                     .catch((error) => console.error("adding failed:", error));
             }break;
         }
-        navigate(`/company/${coupon.companyId}`);
+        navigate(`/admin`);
     }
 
 
     return (
-        <form onSubmit={submitEdit} className="couponEdit-form">
-            <label>title: </label>
-            <input type="texst" name="title" value={couponFormData.title} onChange={handleChange} required/>
-            <p>id: : {coupon.id}</p>
-            <label>description: </label>
-            <textarea  name="description" rows={4} cols={78}  value={couponFormData.description} onChange={handleChange} required/><br/>
-            <label>category:</label>
-            <select name="category" value={couponFormData.category} onChange={handleChange}>
-                {couponFormData.category ==="DEFAULT" && <option value="" disabled>--Select a category--</option>}
-                {Object.keys(CategoryColors)
-                    .filter(category => category !== "DEFAULT")
-                    .map(category => (
-                        <option key={category} value={category}>
-                            {category}
-                        </option>
-                    ))}
-            </select><br/>
-            <label>startDate: </label>
-            <input type="date" name="startDate" value={couponFormData.startDate} onChange={handleChange} required/><br/>
-            <label>endDate: </label>
-            <input type="date" name="endDate" value={couponFormData.endDate} onChange={handleChange} required/><br/>
-            <label>price: </label>
-            <input type="number" name="price" value={couponFormData.price} onChange={handleChange} required/><br/>
-            <label>amount: </label>
-            <input type="number" name="amount" value={couponFormData.amount} onChange={handleChange} required/><br/>
-            <p>companyId: {coupon.companyId}</p>
-            <p>image: {coupon.image}</p>
-            <button type="submit">{mode==="add"?"Add":"Update"}</button>
+        <form onSubmit={submitEdit} className="customerEdit-form">
+            <p>id: {customer.id}</p>
+            <label>firstName: </label>
+            <input type="texst" name="firstName" value={customerFormData.firstName} onChange={handleChange} required/>
+            <label>lastName: </label>
+            <input type="texst" name="lastName" value={customerFormData.lastName} onChange={handleChange} required/>
+            <label>email: </label>
+            <input type="email" name="email" value={customerFormData.email} onChange={handleChange} required/>
+            <br/>
+            <button type="submit">{mode === "add" ? "Add" : "Update"}</button>
         </form>
     );
 }

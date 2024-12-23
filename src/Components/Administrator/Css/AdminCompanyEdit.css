@@ -7,16 +7,16 @@
     background-color: #f9f9f9;
 }
 
-.companyEdit-form label {
+.couponEdit-form label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
 }
 
-.companyEdit-form input[type="text"],
-.companyEdit-form input[type="date"],
-.companyEdit-form input[type="number"],
-.companyEdit-form select {
+.couponEdit-form input[type="text"],
+.couponEdit-form input[type="date"],
+.couponEdit-form input[type="number"],
+.couponEdit-form select {
     width: 100%;
     padding: 8px;
     margin-bottom: 16px;
@@ -25,11 +25,11 @@
     box-sizing: border-box;
 }
 
-.companyEdit-form select {
+.couponEdit-form select {
     appearance: none; /* Remove default dropdown arrow */
 }
 
-.companyEdit-form button {
+.couponEdit-form button {
     width: 100%;
     padding: 10px;
     background-color: #007bff;
@@ -40,10 +40,10 @@
     font-size: 16px;
 }
 
-.companyEdit-form button:hover {
+.couponEdit-form button:hover {
     background-color: #0056b3;
 }
 
-.companyEdit-form p {
+.couponEdit-form p {
     margin-bottom: 16px;
 }

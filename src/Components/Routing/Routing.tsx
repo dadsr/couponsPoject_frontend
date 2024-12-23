@@ -15,8 +15,8 @@ export function Routing(): JSX.Element {
             <Route path = "/login" Component={Login}/>
 
             <Route path = "/admin" Component={AdminHome}/>
-            <Route path = "admin/company/:id" Component={AdminCompanyEdit}/>
-            <Route path = "admin/customer/:id" Component={AdminCustomerEdit}/>
+            <Route path = "/admin/company/:id" Component={AdminCompanyEdit}/>
+            <Route path = "/admin/customer/:id" Component={AdminCustomerEdit}/>
 
 
             <Route path = "/company/:id" Component={CompanyHome}/>
