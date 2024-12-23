@@ -10,7 +10,15 @@ export class CompanyServices{
 
     async getCompany(id: number) :Promise<Company>{
         try {
-            const response = await axios.get<Company>(`${BASE_URL}/company/${id}`,{headers: {Authorization: "Bearer" + localStorage.token}});
+            const response = await axios.get<Company>
+            (`${BASE_URL}/company/${id}`,
+                {
+                    headers:
+                        {
+                            Authorization: "Bearer" + localStorage.token
+                        }
+                }
+            );
             return response.data;
         } catch(error) {
             handleAxiosError(error);
@@ -21,7 +29,15 @@ export class CompanyServices{
 
     async getCoupons(companyId: number):Promise <Coupon[]> {
         try {
-            const response = await axios.get<Coupon[]>(`${BASE_URL}/company/coupons/${companyId}`,{headers: {Authorization: "Bearer" + localStorage.token}});
+            const response = await axios.get<Coupon[]>
+            (`${BASE_URL}/company/coupons/${companyId}`,
+                {
+                    headers:
+                        {
+                            Authorization: "Bearer" + localStorage.token
+                        }
+                }
+            );
             return response.data;
         } catch(error) {
             handleAxiosError(error);
@@ -31,7 +47,16 @@ export class CompanyServices{
 
     async updateCoupon(coupon: Coupon):Promise <string>{
         try {
-            const response = await axios.put(`${BASE_URL}/company/coupon/update`,coupon,{headers: {Authorization: "Bearer" + localStorage.token}});
+            const response = await axios.put
+            (`${BASE_URL}/company/coupon/update`,coupon,
+                {
+                    headers:
+                        {
+                            Authorization: "Bearer" + localStorage.token,
+                            "Content-Type": "application/json",
+                        }
+                    ,}
+            );
             return response.data;
         } catch(error) {
             handleAxiosError(error);
@@ -41,7 +66,16 @@ export class CompanyServices{
 
     async addCoupon(coupon: Coupon):Promise <string>{
         try {
-            const response = await axios.post(`${BASE_URL}/company/coupon/add`,coupon,{headers: {Authorization: "Bearer" + localStorage.token}});
+            const response = await axios.post
+            (`${BASE_URL}/company/coupon/add`,coupon,
+                {
+                    headers:
+                        {
+                            Authorization: "Bearer" + localStorage.token,
+                            "Content-Type": "application/json",
+                        }
+                }
+            );
             return response.data;
         } catch(error) {
             handleAxiosError(error);
@@ -51,7 +85,15 @@ export class CompanyServices{
 
     async deleteCoupon(id: number):Promise <string> {
         try {
-            const response = await axios.delete(`${BASE_URL}/company/coupon/${id}/delete`,{headers: {Authorization: "Bearer" + localStorage.token}});
+            const response = await axios.delete
+            (`${BASE_URL}/company/coupon/${id}/delete`,
+                {
+                    headers:
+                        {
+                            Authorization: "Bearer" + localStorage.token
+                        }
+                }
+            );
             return response.data;
         } catch(error) {
             handleAxiosError(error);

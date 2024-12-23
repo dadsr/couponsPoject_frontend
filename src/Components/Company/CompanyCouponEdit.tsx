@@ -75,8 +75,8 @@ export function CompanyCouponEdit(): JSX.Element {
         const deleteCoupon = () => {
             if(coupon){
                 companyServices.deleteCoupon(coupon.companyId)
-                .then()
-                .catch()
+                    .then()
+                    .catch()
             }
         };
 
