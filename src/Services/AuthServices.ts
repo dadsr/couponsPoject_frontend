@@ -13,6 +13,7 @@ export class AuthServices {
         return token;
     }
 
+    //todo not working
     async Logout() {
          (await axios.delete(`${BASE_URL}/logout?token=${localStorage.getItem("token")}`)
             .then(() => localStorage.removeItem("token"))

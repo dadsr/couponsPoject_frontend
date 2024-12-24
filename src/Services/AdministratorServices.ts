@@ -121,7 +121,8 @@ export class AdministratorServices {
                 {
                     headers:
                         {
-                            Authorization: "Bearer " + localStorage.token
+                            Authorization: "Bearer " + localStorage.token,
+                            "Content-Type": "application/json",
                         }
                 }
             );
@@ -139,7 +140,8 @@ export class AdministratorServices {
                 {
                     headers:
                         {
-                            Authorization: "Bearer " + localStorage.token
+                            Authorization: "Bearer " + localStorage.token,
+                            "Content-Type": "application/json",
                         }
                 }
             );
@@ -157,7 +159,8 @@ export class AdministratorServices {
                 {
                     headers:
                         {
-                            Authorization: "Bearer " + localStorage.token
+                            Authorization: "Bearer " + localStorage.token,
+                            "Content-Type": "application/json",
                         }
                 }
             );
@@ -175,7 +178,8 @@ export class AdministratorServices {
                 {
                     headers:
                         {
-                            Authorization: "Bearer " + localStorage.token
+                            Authorization: "Bearer " + localStorage.token,
+                            "Content-Type": "application/json",
                         }
                 }
             );

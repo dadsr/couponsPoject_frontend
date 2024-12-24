@@ -1,0 +1,50 @@
+.popup-content {
+    margin: auto;
+    background: #e6ffe6; /* Light green background */
+    width: 25%; /* Fixed width */
+    height: 25%; /* Adjust height dynamically */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    display: flex;
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    animation: fadeIn ease-in-out 1.5s;
+    text-align: center;
+    border-width:15px;
+    font-size: 21px;
+}
+
+.popup-overlay {
+    background: rgba(0, 0, 0, 0.6); /* Dark overlay for contrast */
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes borderAnimation {
+    0% {
+        border-color: #ff758c; /* Start with pink */
+    }
+    25% {
+        border-color: #ff7eb3; /* Transition to light pink */
+    }
+    50% {
+        border-color: #8a2be2; /* Transition to purple */
+    }
+    75% {
+        border-color: #00bfff; /* Transition to blue */
+    }
+    100% {
+        border-color: #ff758c; /* Back to pink */
+    }
+}

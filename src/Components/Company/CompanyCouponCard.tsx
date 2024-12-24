@@ -17,7 +17,15 @@ export function CompanyCouponCard(props: couponProps): JSX.Element {
 
     const handleClick = () => {
         props.coupon.companyId = props.company.id;
-        navigate("/coupon/" + props.coupon.id,{state: { couponData: props.coupon }})
+        navigate("/coupon/" + props.coupon.id,
+            {state:
+                    {
+                      couponData: props.coupon,
+                      companyData: props.company,
+                      editMode: "edit"
+                    }
+            }
+        )
     };
 
     return (

@@ -1,4 +1,8 @@
 import "./Css/CustomerHome.css"
+import 'reactjs-popup/dist/index.css';
+import "../Popups/ErrorPopup.css";
+import "../Popups/SuccessPopup.css";
+
 import {Coupon} from "../../Models/Coupon.ts";
 import {useParams} from "react-router-dom";
 import customerServices from "../../Services/CustomerServices.ts";
@@ -8,17 +12,16 @@ import {CouponsFilters} from "../Filters/CouponsFilters.tsx";
 import {useEffect, useState} from "react";
 import {useSidebarContext} from "../../Context/SidebarContext.tsx";
 import ModesEnum from "../../Models/ModesEnum.tsx";
-
+import Popup from "reactjs-popup";
 
 export function CustomerHome(): JSX.Element {
-
+    const { setSidebarData } = useSidebarContext();
     const [error, setError] = useState<string | null>(null);
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const params = useParams();
     const id = Number(params.id);
-
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-
 
     const [customer, setCustomer] = useState<Customer | null>(null);
 
@@ -27,7 +30,7 @@ export function CustomerHome(): JSX.Element {
     const [filteredCustomerCoupons, setFilteredCustomerCoupons] = useState<Coupon[]>([]);
     const [filteredPurchaseCoupons, setFilteredPurchaseCoupons] = useState<Coupon[]>([]);
 
-    const { setSidebarData } = useSidebarContext();
+
 
 
 
@@ -42,9 +45,11 @@ export function CustomerHome(): JSX.Element {
 
     const handlePurchaseSuccess = (couponId: number)=> {
         const purchasedCoupon = purchaseCoupons.find(coupon => coupon.id === couponId);
+
         if(!purchasedCoupon){
             console.error("Coupon not found in purchaseCoupons");
-            return;
+            setError("Coupon not found in purchaseCoupons");
+            return
         }
         setCustomerCoupons((prev) => {
             const updated = [...prev, purchasedCoupon];
@@ -56,6 +61,8 @@ export function CustomerHome(): JSX.Element {
             console.log("Updated purchase coupons:", updated);
             return updated;
         });
+        setShowSuccessPopup(true);
+
     };
 
     useEffect(() => {
@@ -85,7 +92,7 @@ export function CustomerHome(): JSX.Element {
 
     useEffect(() => {
         setSidebarData( {
-            mode: ModesEnum.CLINT_DETAILS,
+            mode: ModesEnum.CUST_DETAILS,
             buttons:<></>,
             cards: <div>
                 <h2>client</h2>
@@ -101,12 +108,12 @@ export function CustomerHome(): JSX.Element {
     }
 
     if (!customer) {
+        setError("Error: Customer not found");
         return <div>Error: Customer not found</div>;
-    }
 
-    if (error) {
-        return <div>{error}</div>;
-    }
+     }
+
+
 
 
 
@@ -123,6 +130,7 @@ export function CustomerHome(): JSX.Element {
                                 coupon={coupon}
                                 customer={customer}
                                 handleClickMode="NOTHING"
+                                setError={setError}
                             />))
                     }
                 </div>
@@ -141,10 +149,21 @@ export function CustomerHome(): JSX.Element {
                                 customer={customer}
                                 handleClickMode="PURCHASE"
                                 onSuccess={handlePurchaseSuccess}
+                                setError={setError}
                             />))
                     }
                 </div>
+                {showSuccessPopup && (
+                    <Popup className="successpop"  open={showSuccessPopup} position="center center" onClose={() => setShowSuccessPopup(false)} >
+                        Purchase accepted
+                    </Popup>
+                )}
+                {error && (
+                    <Popup className="errorpop"  open={true} position="center center" onClose={() => setError(null)} >
+                        <p>{error}</p>
+                    </Popup>
+                )}
             </div>
         </>
-    );
+    )
 }

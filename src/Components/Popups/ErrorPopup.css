@@ -1,0 +1,47 @@
+
+.error-popup .popup-content {
+    margin: auto;
+    background: #ffe6e6; /* Light red background */
+    width: 300px; /* Fixed width */
+    height: auto; /* Adjust height dynamically */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    display: flex;
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    animation: fadeIn ease-in-out 1.5s;
+}
+
+.error-popup .popup-overlay {
+    background: rgba(255, 117, 140, 0.6); /* Light red overlay for error popup */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes borderAnimation {
+    0% {
+        border-color: #ff758c; /* Start with pink */
+    }
+    25% {
+        border-color: #ff7eb3; /* Transition to light pink */
+    }
+    50% {
+        border-color: #8a2be2; /* Transition to purple */
+    }
+    75% {
+        border-color: #00bfff; /* Transition to blue */
+    }
+    100% {
+        border-color: #ff758c; /* Back to pink */
+    }
+}

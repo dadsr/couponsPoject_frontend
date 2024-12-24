@@ -8,11 +8,13 @@ import companyServices from "../../Services/CompanyServices.ts";
 import {useNavigate, useParams} from "react-router-dom";
 import ModesEnum from "../../Models/ModesEnum.tsx";
 import {CouponsFilters} from "../Filters/CouponsFilters.tsx";
+import Popup from "reactjs-popup";
 
 
 export function CompanyHome(): JSX.Element {
-        const navigate = useNavigate();
+    const navigate = useNavigate();
     const [error, setError] = useState<string | null>(null);
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const params = useParams();
@@ -26,11 +28,8 @@ export function CompanyHome(): JSX.Element {
     const { setSidebarData } = useSidebarContext();
 
 
-
-
     useEffect(() => {
         setIsLoading(true);
-        setError(null);
 
         Promise.all([
             companyServices.getCompany(id),
@@ -51,9 +50,20 @@ export function CompanyHome(): JSX.Element {
     },[id]);
 
     const handleNewCoupon = () => {
-        const temp = new Coupon(0,"","",0,"DEFAULT", 0,0,"","","");
-        navigate("/coupon/" + 0,{state: { couponData: temp }});
+        const temp = new Coupon(0,"","",id,"DEFAULT", 0,0,"","","");
+        navigate("/coupon/" + 0,
+            {
+                state:
+                    {
+                        couponData: temp,
+                        companyData:company,
+                        editMode: "add"
+                    }
+            }
+        );
     };
+
+
     useEffect(() => {
         setSidebarData({
             mode: ModesEnum.COMP_DETAILS,
@@ -73,11 +83,8 @@ export function CompanyHome(): JSX.Element {
     }
 
     if (!company) {
+        setError("Error: Company not found");
         return <div>Error: Company not found</div>;
-    }
-
-    if (error) {
-        return <div>{error}</div>;
     }
 
     return (
@@ -97,6 +104,16 @@ export function CompanyHome(): JSX.Element {
                         )
                     }
                 </div>
+                {showSuccessPopup && (
+                    <Popup className="successpop"  open={showSuccessPopup} position="center center" onClose={() => setShowSuccessPopup(false)} >
+                        Purchase accepted
+                    </Popup>
+                )}
+                {error && (
+                    <Popup className="errorpop"  open={true} position="center center" onClose={() => setError(null)} >
+                        <p>{error}</p>
+                    </Popup>
+                )}
             </div>
         </>
     );

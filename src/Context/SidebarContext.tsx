@@ -17,9 +17,9 @@ const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
 export const SidebarProvider = ({ children }: { children: ReactNode }) => {
     const [sidebarData, setSidebarData] = useState<SidebarData>({
-        mode: ModesEnum.COMP_COUPONS,
-        buttons: <div>Initial Buttons</div>,
-        cards: <div>Initial Cards</div>
+        mode: ModesEnum.ADMIN_COMPS,
+        buttons: <div> </div>,
+        cards: <div> </div>
     });
 
     return (

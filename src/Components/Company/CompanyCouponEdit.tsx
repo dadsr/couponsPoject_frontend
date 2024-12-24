@@ -8,22 +8,30 @@ import companyServices from "../../Services/CompanyServices.ts";
 import CategoryColors, {Category} from "../../Models/CategoryEnum.tsx";
 import ModesEnum from "../../Models/ModesEnum.tsx";
 import {useSidebarContext} from "../../Context/SidebarContext.tsx";
+import {Company} from "../../Models/Company.ts";
+
+interface companyCouponEditProps {
+    coupon: Coupon|null;
+    company: Company;
+    editMode: string;
+}
 
 
-export function CompanyCouponEdit(): JSX.Element {
+export function CompanyCouponEdit(props: companyCouponEditProps ): JSX.Element|null {
     const location =useLocation();
     const {couponData}  =location.state ;
-    const mode = couponData.id ===0?"add":"edit";
+    //const mode = couponData.id ===0?"add":"edit";
     const navigate = useNavigate();
     const { setSidebarData } = useSidebarContext();
 
 
     const  [coupon,setCoupon] = useState<Coupon>();
+    const company = props.company;
     const [couponFormData, setCouponFormData] = useState<{
         id: number;
         title: string;
         description: string;
-        companyId: number;
+        companyName: string;
         category: Category;
         price: number;
         amount: number;
@@ -34,14 +42,14 @@ export function CompanyCouponEdit(): JSX.Element {
         id: 0,
         title: "",
         description: "",
-        companyId: 0,
+        companyName: company.name,
         category: "DEFAULT",
         price: 0,
         amount: 0,
         startDate: "",
         endDate: "",
         image: "",
-    });
+});
 
 
     useEffect(() => {
@@ -63,7 +71,7 @@ export function CompanyCouponEdit(): JSX.Element {
                 id: coupon.id || prevState.id,
                 title: coupon.title || prevState.title,
                 description: coupon.description || prevState.description,
-                companyId:coupon.companyId || prevState.companyId,
+                companyName: company.name || prevState.companyName,
                 category: coupon.category || prevState.category,
                 price: coupon.price || prevState.price,
                 amount: coupon.amount || prevState.amount,
@@ -72,31 +80,73 @@ export function CompanyCouponEdit(): JSX.Element {
                 image: coupon.image || prevState.image
             }));
         }
+        const newCoupon = () => {
+            const temp = new Coupon(0, "", "", company.id, "DEFAULT", 0, 0, "", "", "");
+            navigate("/coupon/" + 0,
+                {
+                    state:
+                        {
+                            couponData: temp,
+                            companyData:company,
+                            editMode: "add"
+                        }
+                }
+            );
+        };
+
+        //todo
         const deleteCoupon = () => {
             if(coupon){
-                companyServices.deleteCoupon(coupon.companyId)
+                companyServices.deleteCoupon(coupon.id)
                     .then()
                     .catch()
             }
         };
 
-        setSidebarData({
-            mode: ModesEnum.COMP_DETAILS,
-            buttons: <>
-                <button title="Delete" onClick={deleteCoupon}>Delete Coupon</button>
-            </>,
-            cards: <div>
-                <h2>Coupon edit</h2>
-                <p>title: {coupon?.title}</p>
-                <p>category: {coupon?.category}</p>
-                <p>price: {coupon?.price}</p>
-                <p>amount: {coupon?.amount}</p>
-                <p>startDate: {coupon?.startDate}</p>
-                <p>endDate: {coupon?.endDate}</p>
-            </div>
-        });
+        const backToCompanyHome = () => {
+            navigate( "/company/" + company.id);
+        }
 
-    }, [coupon, setSidebarData]);
+        if (props.editMode === "edit") {
+            setSidebarData({
+                mode: ModesEnum.COMP_DETAILS,
+                buttons: (
+                    <>
+                        <button title="New" onClick={newCoupon}> New Coupon</button>
+                        <br/>
+                        <button title="Delete" onClick={deleteCoupon}> Delete current Coupon</button>
+                        <br/>
+                        <button title="Back" onClick={backToCompanyHome}> Back to company`s home</button>
+                    </>
+                ),
+                cards: (
+                    <div>
+                        <h2>Coupon edit</h2>
+                        <p>title: {coupon?.title}</p>
+                        <p>category: {coupon?.category}</p>
+                        <p>price: {coupon?.price}</p>
+                        <p>amount: {coupon?.amount}</p>
+                        <p>startDate: {coupon?.startDate}</p>
+                        <p>endDate: {coupon?.endDate}</p>
+                    </div>
+                ),
+            });
+        } else if (props.editMode  === "add") {
+            setSidebarData({
+                mode: ModesEnum.COMP_DETAILS,
+                buttons: (<>
+                    <button title="Back" onClick={backToCompanyHome}> Back to company`s home</button>
+                </>),
+                cards: (
+                    <div>
+                        <h2>Add New Coupon</h2>
+                        <p>Fill in the details to create a new coupon.</p>
+                    </div>
+                ),
+            });
+        }
+    }, [props.editMode, coupon, setSidebarData]);
+
 
     if (!coupon) {
         return <div>Error: Company not found</div>;
@@ -113,19 +163,7 @@ export function CompanyCouponEdit(): JSX.Element {
 
     const submitEdit= async (event: React.FormEvent) =>{
         event.preventDefault();
-
-        console.log("id:" + coupon.id + "," +
-            "title" + couponFormData.title + "," +
-            "description" + couponFormData.description + "," +
-            "companyId" + couponFormData.companyId + "," +
-            "category" + couponFormData.category + "," +
-            "price" + couponFormData.price + "," +
-            "amount" + couponFormData.amount + "," +
-            "startDate" + couponFormData.startDate + "," +
-            "endDate" + couponFormData.endDate + "," +
-            "image" + couponFormData.image);
-
-        switch (mode){
+        switch (props.editMode){
             case "edit":{
                 await companyServices
                     .updateCoupon(
@@ -133,7 +171,7 @@ export function CompanyCouponEdit(): JSX.Element {
                             coupon.id,
                             couponFormData.title,
                             couponFormData.description,
-                            couponFormData.companyId,
+                            company.id,
                             couponFormData.category,
                             couponFormData.price,
                             couponFormData.amount,
@@ -151,7 +189,7 @@ export function CompanyCouponEdit(): JSX.Element {
                             0,
                             couponFormData.title,
                             couponFormData.description,
-                            couponFormData.companyId,
+                            company.id,
                             couponFormData.category,
                             couponFormData.price,
                             couponFormData.amount,
@@ -193,9 +231,9 @@ export function CompanyCouponEdit(): JSX.Element {
             <input type="number" name="price" value={couponFormData.price} onChange={handleChange} required/><br/>
             <label>amount: </label>
             <input type="number" name="amount" value={couponFormData.amount} onChange={handleChange} required/><br/>
-            <p>companyId: {coupon.companyId}</p>
+            <p>company name: {props.company.name}</p>
             <p>image: {coupon.image}</p>
-            <button type="submit">{mode==="add"?"Add":"Update"}</button>
+            <button type="submit">{props.editMode === "add"? "Add" : "Update"}</button>
         </form>
     );
 }
