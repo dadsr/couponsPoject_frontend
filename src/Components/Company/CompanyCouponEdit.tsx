@@ -20,7 +20,6 @@ interface companyCouponEditProps {
 export function CompanyCouponEdit(props: companyCouponEditProps ): JSX.Element|null {
     const location =useLocation();
     const {couponData}  =location.state ;
-    //const mode = couponData.id ===0?"add":"edit";
     const navigate = useNavigate();
     const { setSidebarData } = useSidebarContext();
 

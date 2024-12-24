@@ -52,7 +52,7 @@ export class CompanyServices{
                 {
                     headers:
                         {
-                            Authorization: "Bearer" + localStorage.token,
+                            Authorization: localStorage.token,
                             "Content-Type": "application/json",
                         }
                     ,}

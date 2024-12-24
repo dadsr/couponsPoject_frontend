@@ -10,8 +10,8 @@ interface LocationState {
 }
 
 const CompanyCouponEditWrapper = (): JSX.Element | null => {
-    const location = useLocation<LocationState>();
-    const { couponData, companyData, editMode } = location.state || {};
+    const location = useLocation();
+    const { couponData, companyData, editMode } = location.state as LocationState || {};
 
     if (!couponData || !companyData || !editMode) {
         return <div>Error: Missing required data for editing.</div>;
