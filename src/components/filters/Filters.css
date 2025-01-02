@@ -1,0 +1,86 @@
+/* Filters Component Styles */
+.CustomerCouponsFilters {
+    font-family: Arial, sans-serif;
+    margin: 20px auto;
+    padding: 15px 20px;
+    max-width: 100%; /* Allow full width for horizontal layout */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex; /* Use flexbox for horizontal alignment */
+    flex-wrap: wrap; /* Ensure wrapping on smaller screens */
+    gap: 15px; /* Space between items */
+    align-items: center; /* Center align items vertically */
+}
+
+/* Radio Buttons Section */
+.filters-radio {
+    display: flex;
+    flex-direction: row; /* Align radio buttons horizontally */
+    gap: 15px; /* Space between radio buttons */
+}
+
+.custom-radio {
+    display: flex;
+    align-items: center; /* Vertically align radio and label */
+    cursor: pointer;
+}
+
+.custom-radio input[type="radio"] {
+    margin-right: 8px;
+}
+
+.custom-radio:hover span {
+    color: #007BFF; /* Highlight text on hover */
+}
+
+/* Dropdown (Category Selector) */
+select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+select:hover,
+select:focus {
+    border-color: #007BFF; /* Highlight border on hover/focus */
+}
+
+/* Number Input (Max Price) */
+input[type="number"] {
+    min-width: 150px; /* Set a minimum width for consistency */
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input[type="number"]:hover,
+input[type="number"]:focus {
+    border-color: #007BFF; /* Highlight border on hover/focus */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .CustomerCouponsFilters {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        gap: 10px; /* Reduce spacing for compact layout */
+        padding: 15px;
+        font-size: 14px;
+        align-items: stretch; /* Stretch items to fit container width */
+    }
+
+    select,
+    input[type="number"] {
+        width: calc(100% - 20px); /* Full width with padding adjustment */
+        font-size: 14px;
+        padding: 8px;
+        margin-bottom: 10px; /* Add spacing between stacked elements */
+    }
+}

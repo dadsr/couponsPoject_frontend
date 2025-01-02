@@ -1,0 +1,95 @@
+/* General Reset */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9; /* Light background for a clean look */
+    color: #333; /* Neutral text color */
+}
+
+/* Admin Home Container */
+.AdminHome {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto; /* Center the content */
+}
+
+/* Section Headings */
+.AdminHome h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.AdminHome h5 {
+    font-size: 16px;
+    color: #777; /* Subtle color for subheadings */
+}
+
+/* Companies and Customers Section */
+.CompaniesSection,
+.CustomersSection {
+    margin-bottom: 40px; /* Add spacing between sections */
+}
+
+.CompaniesList,.CustomersList {
+    display: flex; /* Align items in a row */
+    gap: 16px; /* Space between items */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden; /* Prevent vertical scrolling */
+    flex-direction: row; /* Ensure items are in a row */
+    border: #1a1a1a solid 1px; /* Add a border */
+    scroll-behavior: smooth; /* Smooth scrolling effect */
+    max-width: 100vw; /* Limit the width to the viewport (screen width) */
+    box-sizing: border-box; /* Include padding and border in width calculations */
+}
+
+
+/* Cards Container */
+.CardsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid layout */
+    gap: 20px; /* Space between cards */
+}
+
+/* Card Styles (Shared with AdminCompanyCard and AdminCustomerCard) */
+.Card {
+    background-color: #fff; /* White card background */
+    border-radius: 10px; /* Rounded corners for modern design */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 15px;
+}
+
+.Card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Card Title */
+.Card h2 {
+    font-size: 18px;
+}
+
+/* Loading and Error States */
+.Loading,
+.Error {
+    text-align: center;
+}
+
+.Loading {
+    font-size: 18px;
+}
+
+.Error {
+    color: red;
+}
+
+/* Responsive Design (Mobile View) */
+@media (max-width: 768px) {
+    .AdminHome {
+        padding: 10px;
+    }
+
+    .CardsContainer {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust grid for smaller screens */
+    }
+}

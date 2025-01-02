@@ -1,0 +1,52 @@
+/* General Reset */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9; /* Light background for a clean look */
+    color: #333; /* Neutral text color */
+}
+
+/* Coupon Card Container */
+.CustomerCouponCard {
+    background-color: #fff; /* White background for the card */
+    border-radius: 10px; /* Rounded corners for a modern feel */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    overflow: hidden; /* Prevent content overflow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+.CustomerCouponCard:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Inner Content */
+.card-inner {
+    padding: 20px;
+    cursor: pointer; /* Pointer cursor for clickable cards */
+}
+
+/* Coupon Title */
+.card-inner h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #007bff; /* Primary blue color for title */
+}
+
+/* Coupon Details (Paragraphs) */
+.card-inner p {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+/* Price Highlighting */
+.card-inner p:nth-child(7) { /* Targeting price field */
+    font-weight: bold;
+}
+
+/* Responsive Design (Mobile View) */
+@media (max-width: 768px) {
+    .CustomerCouponCard {
+        margin-bottom: 20px; /* Add spacing between cards on smaller screens */
+    }
+}

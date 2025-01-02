@@ -1,0 +1,83 @@
+/* General Reset */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9; /* Light background for a modern look */
+    color: #333; /* Neutral text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Login Form Container */
+.login-form {
+    background-color: #fff; /* White card-like background */
+    padding: 30px;
+    border-radius: 10px; /* Rounded corners for a modern feel */
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 1); /* Subtle shadow for depth */
+    width: 100%;
+    max-width: 1000px; /* Restrict width for better readability */
+}
+
+/* Form Labels */
+.login-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Input Fields */
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    width: calc(100% - 20px); /* Full width with padding adjustment */
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px; /* Rounded input fields */
+    border: 1px solid #ccc; /* Neutral border color */
+}
+
+.login-form input[type="email"]:focus,
+.login-form input[type="password"]:focus {
+    outline: none;
+    border-color: #007bff; /* Highlight border on focus */
+}
+
+/* Role Selection (Radio Buttons) */
+.role-radio {
+    margin-bottom: 20px;
+}
+
+.role-radio legend {
+    font-weight: bold;
+}
+
+.role-radio input[type="radio"] {
+    margin-right: 10px;
+}
+
+.role-radio label {
+    margin-right: 15px;
+}
+
+/* Submit Button */
+.login-form button[type="submit"] {
+    width: calc(100% - 20px); /* Full width with padding adjustment */
+    padding: 10px;
+    background-color: #007bff; /* Primary blue color */
+    color: white; /* White text for contrast */
+    border-radius: 5px; /* Rounded button */
+    border: none;
+}
+
+.login-form button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-form {
+        padding: 20px;
+        width: calc(100% - 40px); /* Adjust width for smaller screens */
+    }
+}

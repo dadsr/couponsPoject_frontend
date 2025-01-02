@@ -1,0 +1,75 @@
+/* General Reset */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9; /* Light background for a clean look */
+    color: #333; /* Neutral text color */
+}
+
+/* Form Container */
+.companyEdit-form {
+    background-color: #fff; /* White card-like background */
+    padding: 30px;
+    border-radius: 10px; /* Rounded corners for modern design */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 600px;
+    margin: 20px auto; /* Center the form */
+}
+
+/* Form Labels */
+.companyEdit-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Input Fields */
+.companyEdit-form input[type="text"],
+.companyEdit-form input[type="email"],
+.companyEdit-form input[type="password"] {
+    width: calc(100% - 20px); /* Full width with padding adjustment */
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px; /* Rounded input fields */
+    border: 1px solid #ccc; /* Neutral border color */
+}
+
+.companyEdit-form input[type="text"]:focus,
+.companyEdit-form input[type="email"]:focus,
+.companyEdit-form input[type="password"]:focus {
+    outline: none;
+    border-color: #007bff; /* Highlight border on focus */
+}
+
+/* Submit Button */
+.companyEdit-form button[type="submit"] {
+    width: calc(100% - 20px); /* Full width with padding adjustment */
+    padding: 10px;
+    background-color: #007bff; /* Primary blue color */
+    color: white; /* White text for contrast */
+    border-radius: 5px; /* Rounded button */
+    border: none;
+}
+
+.companyEdit-form button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Read-Only Fields (e.g., ID Display) */
+.companyEdit-form p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Error Message Styling (if applicable) */
+.error-message {
+    color: red;
+}
+
+/* Responsive Design (Mobile View) */
+@media (max-width: 768px) {
+    .companyEdit-form {
+        padding: 20px;
+        width: calc(100% - 40px); /* Adjust width for smaller screens */
+    }
+}

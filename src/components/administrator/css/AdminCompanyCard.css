@@ -1,0 +1,44 @@
+/* General Reset */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9; /* Light background for a clean look */
+    color: #333; /* Neutral text color */
+}
+
+/* Company Card Container */
+.AdminCompanyCard {
+    background-color: #fff; /* White card background */
+    border-radius: 10px; /* Rounded corners for modern design */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 20px;
+    margin-bottom: 20px; /* Space between cards */
+    cursor: pointer; /* Pointer cursor to indicate interactivity */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+.AdminCompanyCard:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Company Name (Title) */
+.AdminCompanyCard h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #007bff; /* Primary blue color for title */
+}
+
+/* Company Details (Paragraphs) */
+.AdminCompanyCard p {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* Responsive Design (Mobile View) */
+@media (max-width: 768px) {
+    .AdminCompanyCard {
+        padding: 15px;
+        margin-bottom: 15px; /* Adjust spacing for smaller screens */
+    }
+}
