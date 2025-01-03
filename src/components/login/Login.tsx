@@ -4,10 +4,11 @@ import authServices from "../../services/AuthServices.ts";
 import {DecodeToken} from "../../services/DecodeToken.ts";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {useAuth, UserData} from "../../context/AuthContext.tsx";
 
 export function Login(): JSX.Element {
     const navigate = useNavigate();
-    // const { login } = useAuth();
+    const { setAuthState } = useAuth();
 
     const [loginFormData, setLoginFormData] = useState({
         email: "",
@@ -26,16 +27,13 @@ export function Login(): JSX.Element {
     const submitLogin = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        await authServices.Login(loginFormData.email, loginFormData.password, loginFormData.role)
+        await authServices.login(loginFormData.email, loginFormData.password, loginFormData.role)
             .then((token) => {
-                const decodedToken = DecodeToken.decode(token);
+                const decodedToken = DecodeToken.decode(token) as UserData;
                 console.log(decodedToken);
                 if(decodedToken){
-                    // login({
-                    //     id: decodedToken.id,
-                    //     name: decodedToken.name,
-                    //     email: decodedToken.email,
-                    // });
+                    localStorage.setItem("userData",JSON.stringify(decodedToken));
+                    setAuthState(decodedToken);
 
                     switch (decodedToken.role) {
                         case "ADMINISTRATOR":
