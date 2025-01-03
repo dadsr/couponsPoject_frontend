@@ -4,7 +4,7 @@ import authServices from "../../services/AuthServices.ts";
 import {DecodeToken} from "../../services/DecodeToken.ts";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {useAuth, UserData} from "../../context/AuthContext.tsx";
+import {useAuth, UserData} from "../../contexts/AuthContext.tsx";
 
 export function Login(): JSX.Element {
     const navigate = useNavigate();

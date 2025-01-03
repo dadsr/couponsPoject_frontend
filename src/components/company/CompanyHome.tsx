@@ -1,12 +1,13 @@
 import "./Css/CompanyHome.css";
 
-import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {Company} from "../../Models/Company.ts";
 import {Coupon} from "../../Models/Coupon.ts";
 import companyServices from "../../services/CompanyServices.ts";
 import {Filters} from "../filters/Filters.tsx";
 import {CompanyCouponCard} from "./CompanyCouponCard.tsx";
+import {useSidebarContext} from "../../contexts/SidebarContext.tsx";
+import {useEffect, useState} from "react";
 
 export function CompanyHome(): JSX.Element {
     const [error, setError] = useState<string | null>(null);
@@ -20,6 +21,23 @@ export function CompanyHome(): JSX.Element {
     const [companyCoupons, setCompanyCoupons] = useState<Coupon[]>([]);
     const [filteredCompanyCoupons, setFilteredCompanyCoupons] = useState<Coupon[]>([]);
 
+    const { setSidebar } = useSidebarContext();
+
+    const updateSidebar = (comapnyData: Company) => {
+        setSidebar({
+            buttons: <div>
+                <button type="button">New Coupon</button>
+            </div>,
+            data: (
+                <div>
+                    <h2>{comapnyData.name} </h2>
+                    <p>id: {comapnyData.id}</p>
+                    <p>email: {comapnyData.email}</p>
+                </div>
+            )
+        });
+    };
+
     useEffect(() => {
         setIsLoading(true);
 
@@ -29,6 +47,7 @@ export function CompanyHome(): JSX.Element {
         ])
             .then(([companyData, compCoupons]) => {
                 setCompany(companyData);
+                updateSidebar(companyData);
                 setCompanyCoupons(compCoupons);
                 setFilteredCompanyCoupons(compCoupons);
             })

@@ -1,6 +1,5 @@
 import "./Css/CustomerHome.css"
 
-
 import {Coupon} from "../../Models/Coupon.ts";
 import {useParams} from "react-router-dom";
 import {CustomerCouponCard} from "./CustomerCouponCard.tsx";
@@ -8,6 +7,9 @@ import {Customer} from "../../Models/Customer.ts";
 import {useEffect, useState} from "react";
 import customerServices from "../../services/CustomerServices.ts";
 import {Filters} from "../filters/Filters.tsx";
+import {useSidebarContext} from "../../contexts/SidebarContext.tsx";
+
+
 
 export function CustomerHome(): JSX.Element {
     const [error, setError] = useState<string | null>(null);
@@ -24,6 +26,20 @@ export function CustomerHome(): JSX.Element {
     const [filteredCustomerCoupons, setFilteredCustomerCoupons] = useState<Coupon[]>([]);
     const [filteredPurchaseCoupons, setFilteredPurchaseCoupons] = useState<Coupon[]>([]);
 
+    const { setSidebar } = useSidebarContext();
+
+    const updateSidebar = (customerData: Customer) => {
+        setSidebar({
+            buttons: <div></div>,
+            data: (
+                <div>
+                    <h2>{customerData.firstName} {customerData.lastName}</h2>
+                    <p>id: {customerData.id}</p>
+                    <p>email: {customerData.email}</p>
+                </div>
+            )
+        });
+    };
 
     useEffect(() => {
         setIsLoading(true);
@@ -36,6 +52,7 @@ export function CustomerHome(): JSX.Element {
         ])
             .then(([customerData, couponsData, purchaseData]) => {
                 setCustomer(customerData);
+                updateSidebar(customerData);
                 setCustomerCoupons(couponsData);
                 setPurchaseCoupons(purchaseData);
                 //for updating coupons list before and after purchase
@@ -45,7 +62,7 @@ export function CustomerHome(): JSX.Element {
             .finally(() => {
                 setIsLoading(false);
             });
-    }, [id]);
+    }, [id, setSidebar]);
 
 
     const handlePurchaseSuccess = (couponId: number) => {

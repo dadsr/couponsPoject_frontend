@@ -6,6 +6,7 @@ import {Customer} from "../../Models/Customer.ts";
 import administratorServices from "../../services/AdministratorServices.ts";
 import {AdminCompanyCard} from "./AdminCompanyCard.tsx";
 import {AdminCustomerCard} from "./AdminCustomerCard.tsx";
+import {useSidebarContext} from "../../contexts/SidebarContext.tsx";
 
 
 export function AdminHome(): JSX.Element {
@@ -14,6 +15,18 @@ export function AdminHome(): JSX.Element {
 
     const [companies, setCompanies] = useState<Company[]>([]);
     const [customers, setCustomers] = useState<Customer[]>([]);
+
+    const { setSidebar } = useSidebarContext();
+
+    const updateSidebar = () => {
+        setSidebar({
+            buttons: <div>
+                <button type="button">New Company</button>
+                <button type="button">New Client</button>
+            </div>,
+            data: <div></div>
+        });
+    };
 
     useEffect(() => {
         Promise.all([
@@ -29,6 +42,7 @@ export function AdminHome(): JSX.Element {
                 setError(error);
             })
             .finally(() => {
+                updateSidebar();
                 setIsLoading(false);
             });
     }, []);
