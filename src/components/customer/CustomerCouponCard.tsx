@@ -16,10 +16,25 @@ interface couponProps {
     setError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
+/**
+ * The `CustomerCouponCard` component represents a single coupon card for customers.
+ * It displays coupon details, handles purchases, and updates the sidebar with the customer's last purchase.
+ *
+ * @param {Coupon} coupon - The coupon data to display.
+ * @param {Customer} customer - The customer associated with the coupon.
+ * @param {"PURCHASE" | "NOTHING"} handleClickMode - Defines the action when the card is clicked (purchase or no action).
+ * @param {(couponId: number) => void} [onSuccess] - Callback function invoked on successful purchase.
+ * @param {React.Dispatch<React.SetStateAction<string | null>>} setError - Function to handle errors.
+ *
+ * @returns {JSX.Element} The rendered `CustomerCouponCard` component.
+ */
 export function CustomerCouponCard(props: couponProps): JSX.Element {
     const {setSidebar} = useSidebarContext();
     const backgroundColor = categoryColors[props.coupon.category] || "#ffffff";
 
+    /**
+     * Updates the sidebar with customer details and their last purchased coupon.
+     */
     const updateSidebar = () => {
         setSidebar({
             buttons:
@@ -45,7 +60,9 @@ export function CustomerCouponCard(props: couponProps): JSX.Element {
         });
     };
 
-
+    /**
+     * Handles the purchase of a coupon when the card is clicked (if in "PURCHASE" mode).
+     */
     const handlePurchase = () => {
         if (props.handleClickMode === "PURCHASE") {
             customerServices.postCouponPurchase(props.customer.id, props.coupon.id)
@@ -62,18 +79,19 @@ export function CustomerCouponCard(props: couponProps): JSX.Element {
         }
     };
 
+    /**
+     * Renders the coupon card with its details.
+     */
     return (
         <div className="CustomerCouponCard" style={{backgroundColor}}>
             <div className="card-inner" onClick={handlePurchase}>
                 <h2>{props.coupon.title}</h2>
-                <p>id: {props.coupon.id}</p>
                 <p>description: {props.coupon.description}</p>
                 <p>category: {props.coupon.category}</p>
                 <p>startDate: {props.coupon.startDate}</p>
                 <p>endDate: {props.coupon.endDate}</p>
                 <p>price: {props.coupon.price}</p>
                 <p>amount: {props.coupon.amount}</p>
-                <p>image: {props.coupon.image}</p>
             </div>
         </div>
     );

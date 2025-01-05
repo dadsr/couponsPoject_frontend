@@ -119,10 +119,10 @@ export function AdminHome(): JSX.Element {
      * as well as an error popup for displaying any errors that occur.
      */
     return (
-        <>
+        <div className="AdminHome">
             <h1>Admin Page</h1>
             <h3>Companies</h3>
-            <h5>* click for edit</h5>
+            <h4>* click for edit</h4>
             <div className="CompaniesList">
                 {companies.map((company) => (<AdminCompanyCard key={company.id} company={company}/>))}
             </div>
@@ -130,7 +130,7 @@ export function AdminHome(): JSX.Element {
             <hr/>
             <br/>
             <h3>Customers</h3>
-            <h5>* click for edit</h5>
+            <h4>* click for edit</h4>
             <div className="CustomersList">
                 {customers.map(customer => (<AdminCustomerCard key={customer.id} customer={customer}/>))}
             </div>
@@ -141,6 +141,6 @@ export function AdminHome(): JSX.Element {
                 message={error.message}
                 onClose={closeError}
             />
-        </>
+        </div>
     )
 }

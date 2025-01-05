@@ -1,101 +1,67 @@
-/* General Reset */
+
 body {
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9; /* Light background for a clean look */
-    color: #333; /* Neutral text color */
+    padding: 0;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-/* Sidebar */
-.sidebar {
-    position: fixed;
-    top: 70px; /* Match header height */
-    left: 0;
-    width: 325px; /* Sidebar width */
-    height: calc(100% - 70px); /* Full height minus header */
-    padding: 1rem;
+.AdminHome {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background: linear-gradient(to bottom, #4e54c8, #8f94fb);
-    color: white;
-    font-size: 1.2rem;
-    font-weight: 500;
-    margin: 0;
-    padding-left: 2rem;
-    max-width: 80%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* Admin Home Container */
-.AdminHome {
-    margin-left: 325px; /* Offset by the sidebar width */
+    margin-left: 500px;
     padding: 20px;
-    max-width: calc(100% - 325px); /* Adjust width to exclude sidebar */
-    box-sizing: border-box; /* Include padding in width calculations */
+    box-sizing: border-box;
+    height: 90vh;
+    overflow-y: auto;
 }
 
-/* Section Headings */
-.AdminHome h3 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
 }
 
-.AdminHome h5 {
-    font-size: 16px;
-    color: #777; /* Subtle color for subheadings */
+h3 {
+    font-size: 1.8rem;
+    color: #4a4a8e;
+    margin-bottom: 5px;
 }
 
-/* Companies and Customers Section */
-.CompaniesSection,
-.CustomersSection {
-    margin-bottom: 40px; /* Add spacing between sections */
+h4 {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
 }
 
-.CompaniesList,
-.CustomersList {
-    display: flex; /* Align items in a row */
-    gap: 16px; /* Space between items */
-    overflow-x: auto; /* Enable horizontal scrolling for cards */
-    overflow-y: hidden; /* Prevent vertical scrolling */
-    flex-direction: row; /* Ensure items are aligned horizontally */
-    scroll-behavior: smooth; /* Smooth scrolling effect */
+
+.CompaniesList, .CustomersList {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 15px;
     padding-bottom: 10px;
+    scroll-behavior: smooth;
+    max-width: 100vw;
+    box-sizing: border-box;
+
 }
 
-.CompaniesList::-webkit-scrollbar,
-.CustomersList::-webkit-scrollbar {
-    height: 8px; /* Horizontal scrollbar height */
-}
-
-.CompaniesList::-webkit-scrollbar-thumb,
-.CustomersList::-webkit-scrollbar-thumb {
-    background-color: #4e54c8; /* Match sidebar gradient color scheme */
-}
-
-.CompaniesList::-webkit-scrollbar-track,
-.CustomersList::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
-}
-
-/* Cards (Shared with AdminCompanyCard and AdminCustomerCard) */
-.Card {
-    background-color: #fff; /* White card background */
-    border-radius: 10px; /* Rounded corners for modern design */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    padding: 15px;
-    min-width: 250px; /* Minimum width for cards in horizontal layout */
-}
-
-.Card:hover {
-    transform: translateY(-5px); /* Slight lift on hover */
-}
-
-/* Card Title (Shared with AdminCompanyCard and AdminCustomerCard) */
-.Card h2 {
-    font-size: 18px;
+.CompaniesList > div, .CustomersList > div {
+    min-width: 200px; /* Minimum width for each card */
+    max-width: calc(100% / 6); /* Dynamically adjust width to fit more cards in view */
+    flex-shrink: 0; /* Prevent shrinking of cards */
 }
 
 
+.CompaniesList, .CustomersList {
+    max-width: calc(100vw - 270px); /* Subtract sidebar + padding space from full width */
+}
+
+hr {
+    border-top: 2px solid #ddd;
+}

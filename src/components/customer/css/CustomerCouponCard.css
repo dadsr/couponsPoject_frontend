@@ -28,14 +28,14 @@ body {
 
 /* Coupon Title */
 .card-inner h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 18px;
+    margin-bottom: 8px;
     color: #007bff; /* Primary blue color for title */
 }
 
 /* Coupon Details (Paragraphs) */
 .card-inner p {
-    font-size: 14px;
+    font-size: 12px;
     margin-bottom: 8px;
 }
 

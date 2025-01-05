@@ -8,6 +8,7 @@ interface ErrorPopupProps {
     onClose: () => void;
 }
 
+
 const ErrorPopup = ({ open, status, message, onClose }: ErrorPopupProps) => (
     <Popup open={open} closeOnDocumentClick onClose={onClose} modal>
         <div className="error-modal">

@@ -1,6 +1,11 @@
 import "./PageNotFound.css"
 import {useNavigate} from "react-router-dom";
 
+/**
+ * Functional component to display a "404 Page Not Found" error.
+ *
+ * @returns {JSX.Element} A JSX element rendering an image for the 404 error page.
+ */
 export function PageNotFound(): JSX.Element {
     const navigate = useNavigate();
 
@@ -11,6 +16,5 @@ export function PageNotFound(): JSX.Element {
                 alt="404"
                 onClick={() => navigate("/login")}
             />
-
     );
 }

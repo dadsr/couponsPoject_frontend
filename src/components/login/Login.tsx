@@ -8,6 +8,16 @@ import {useAuth, UserData} from "../../contexts/AuthContext.tsx";
 import {useErrorHandler} from "../../errors/errorHandler.ts";
 import ErrorPopup from "../popups/ErrorPop.tsx";
 
+/**
+ * Functional component for the Login page.
+ *
+ * This component provides a login form where users can enter their email, password,
+ * and role (Administrator, Company, or Customer). It handles form submission,
+ * authenticates the user, decodes the token, and navigates to the appropriate page
+ * based on the user's role. Errors are displayed using a reusable `ErrorPopup` component.
+ *
+ * @returns {JSX.Element} A JSX element rendering the login form and error popup.
+ */
 export function Login(): JSX.Element {
     const navigate = useNavigate();
     const {setAuthState} = useAuth();
@@ -20,6 +30,11 @@ export function Login(): JSX.Element {
         role: "",
     });
 
+    /**
+     * Handles changes in input fields and updates the login form state.
+     *
+     * @param {React.ChangeEvent<HTMLInputElement | HTMLSelectElement>} event - The change event from input/select elements.
+     */
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const {name, value} = event.target;
         setLoginFormData((prevData) => ({
@@ -28,6 +43,15 @@ export function Login(): JSX.Element {
         }));
     };
 
+    /**
+     * Handles login form submission.
+     *
+     * Authenticates the user by calling the `authServices.login` method with the provided credentials.
+     * Decodes the token to retrieve user data and navigates to the appropriate page based on the user's role.
+     * Displays an error popup if authentication fails or if an unknown role is encountered.
+     *
+     * @param {React.FormEvent} event - The form submission event.
+     */
     const submitLogin = async (event: React.FormEvent) => {
         event.preventDefault();
 

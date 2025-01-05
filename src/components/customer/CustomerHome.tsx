@@ -11,7 +11,13 @@ import {useErrorHandler} from "../../errors/errorHandler.ts";
 import ErrorPopup from "../popups/ErrorPop.tsx";
 import {useEffect, useState} from "react";
 
-
+/**
+ * `CustomerHome` Component
+ * @description Displays customer details, available coupons, and purchaseable coupons.
+ * It also handles coupon filtering and purchasing logic.
+ *
+ * @returns {JSX.Element} The JSX element representing the customer home page.
+ */
 export function CustomerHome(): JSX.Element {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -29,7 +35,10 @@ export function CustomerHome(): JSX.Element {
     const {setSidebar} = useSidebarContext();
     const {error, handleError, closeError} = useErrorHandler();
 
-
+    /**
+     * Updates the sidebar with customer-specific information.
+     * @param {Customer} customerData - The customer data to display in the sidebar.
+     */
     const updateSidebar = (customerData: Customer) => {
         setSidebar({
             buttons: <div></div>,
@@ -43,6 +52,9 @@ export function CustomerHome(): JSX.Element {
         });
     };
 
+    /**
+     * Fetches customer data and updates state variables on component mount or when `id` changes.
+     */
     useEffect(() => {
         setIsLoading(true);
         Promise.all([
@@ -63,9 +75,12 @@ export function CustomerHome(): JSX.Element {
             .finally(() => {
                 setIsLoading(false);
             });
-    }, [id, setSidebar]);
+    }, [id]);
 
-
+    /**
+     * Handles successful coupon purchases by updating state variables.
+     * @param {number} couponId - The ID of the purchased coupon.
+     */
     const handlePurchaseSuccess = (couponId: number) => {
         const purchasedCoupon = purchaseCoupons.find(coupon => coupon.id === couponId);
 
@@ -99,8 +114,11 @@ export function CustomerHome(): JSX.Element {
     return (
         <>
             <div className="CustomerHome">
-                <Filters coupons={customerCoupons}
-                         setFilteredCoupons={setFilteredCustomerCoupons}/> <br/>
+                <h2>Customer Page</h2>
+                <h5>Customer Coupons</h5>
+<span>
+                <Filters coupons={customerCoupons} setFilteredCoupons={setFilteredCustomerCoupons}/>
+</span>
                 <div className="CustomerCoupons">
                     {filteredCustomerCoupons.length > 0 ?
                         (filteredCustomerCoupons.map(coupon => (
@@ -116,11 +134,11 @@ export function CustomerHome(): JSX.Element {
                     }
                 </div>
                 <br/>
-                <br/>
-                <Filters coupons={purchaseCoupons}
-                         setFilteredCoupons={setFilteredPurchaseCoupons}/> <br/>
-                <h3>click to purchase</h3>
+                <h5>Purchase Coupons</h5>
 
+               <span> <Filters coupons={purchaseCoupons}
+                         setFilteredCoupons={setFilteredPurchaseCoupons}/> </span>
+                <h6>* click to purchase</h6>
                 <div className="PurchaseCoupons">
                     {filteredPurchaseCoupons.length > 0 ?
                         (filteredPurchaseCoupons.map(coupon => (

@@ -37,15 +37,19 @@ export function AdminCompanyEdit(): JSX.Element {
                 (
                     <div>
                         <br/>
-                        <button title="Back" onClick={() => {
-                            navigate(`/admin`);
-                        }}> Back
-                        </button>
-                    </div>
-                ),
-            data: <div></div>
-        });
-    };
+                        <button title="Back" onClick={() => {navigate(`/admin`);}}> Back </button>
+                        <br/>
+                        {mode === "edit" &&
+                            <button title="Delete" onClick={async () => {
+                                await administratorServices.deleteCompany(company!.id)
+                                    .catch((err) => handleError(err));
+                                navigate(`/admin`);
+                            }}> Delete </button>}
+                            </div>
+                            ),
+                            data: <div></div>
+                        });
+                        };
 
 
     /**

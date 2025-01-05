@@ -1,8 +1,8 @@
 /* Filters Component Styles */
 .CustomerCouponsFilters {
     font-family: Arial, sans-serif;
-    margin: 20px auto;
-    padding: 15px 20px;
+    margin: 5px auto;
+    padding: 5px;
     max-width: 100%; /* Allow full width for horizontal layout */
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -10,7 +10,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex; /* Use flexbox for horizontal alignment */
     flex-wrap: wrap; /* Ensure wrapping on smaller screens */
-    gap: 15px; /* Space between items */
+    gap: 20px; /* Space between items */
     align-items: center; /* Center align items vertically */
 }
 
@@ -18,7 +18,7 @@
 .filters-radio {
     display: flex;
     flex-direction: row; /* Align radio buttons horizontally */
-    gap: 15px; /* Space between radio buttons */
+    gap: 20px; /* Space between radio buttons */
 }
 
 .custom-radio {

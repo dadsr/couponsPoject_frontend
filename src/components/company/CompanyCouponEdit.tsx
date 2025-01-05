@@ -174,7 +174,7 @@ export function CompanyCouponEdit(): JSX.Element {
             <form onSubmit={submitEdit} className="couponEdit-form">
                 <label>title: </label>
                 <input type="text" name="title" value={couponFormData.title} onChange={handleChange} required/>
-                {mode === "add" && <p>id: : {couponFormData.id}</p>}
+                {mode === "edit" && <p>id: {couponFormData.id}</p>}
                 <label>description: </label>
                 <textarea name="description" rows={4} cols={78} value={couponFormData.description}
                           onChange={handleChange}
