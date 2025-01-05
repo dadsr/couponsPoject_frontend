@@ -1,114 +1,121 @@
-import {Company} from "../Models/Company.ts";
+import {Company} from "../models/Company.ts";
 import axios from "axios";
-import {errorHandler} from "../errors/errorHandler.ts";
-import {Customer} from "../Models/Customer.ts";
+import {Customer} from "../models/Customer.ts";
 import {interceptorInit} from "./AxiosInterseptor.ts";
 
-interceptorInit();
+interceptorInit(); // Initializes the interceptor.
 
+/**
+ * The `AdministratorServices` class provides methods to manage API operations related to companies and customers.
+ */
 export class AdministratorServices {
 
+    /**
+     * Fetches a list of all companies from the server.
+     *
+     * @returns {Promise<Company[]>} A promise that resolves to an array of Company objects.
+     */
     async getCompanies(): Promise<Company[]> {
-        try {
             const response = await axios.get<Company[]>(`/admin/companies`);
             return response.data;
-        } catch (error) {
-            errorHandler(error);
-            throw error;
-        }
     }
 
+    /**
+     * Fetches a list of all customers from the server.
+     *
+     * @returns {Promise<Customer[]>} A promise that resolves to an array of Customer objects.
+     */
     async getCustomers(): Promise<Customer[]> {
-        try {
             const response = await axios.get<Customer[]>(`/admin/customers`);
             return response.data;
-        } catch (error) {
-            errorHandler(error);
-            throw error;
-        }
     }
 
+    /**
+     * Fetches details of a specific company by its ID.
+     *
+     * @param {number} id - The ID of the company to fetch.
+     * @returns {Promise<Company>} A promise that resolves to a single Company object.
+     */
     async getCompany(id: number): Promise<Company> {
-        try {
             const response = await axios.get<Company>(`/admin/company/${id}`);
             return response.data;
-        } catch (error) {
-            errorHandler(error);
-            throw error;
-        }
     }
 
+    /**
+     * Fetches details of a specific customer by their ID.
+     *
+     * @param {number} id - The ID of the customer to fetch.
+     * @returns {Promise<Customer>} A promise that resolves to a single Customer object.
+     */
     async getCustomer(id: number): Promise<Customer> {
-        try {
             const response = await axios.get<Customer>(`/admin/customer/${id}`);
             return response.data;
-        } catch (error) {
-            errorHandler(error);
-            throw error;
-        }
     }
 
+    /**
+     * Deletes a specific company by its ID and returns a confirmation message.
+     *
+     * @param {number} id - The ID of the company to delete.
+     * @returns {Promise<string>} A promise that resolves to a success message as a string.
+     */
     async deleteCompany(id: number): Promise<string> {
-        try {
             const response = await axios.delete(`/admin/company/${id}`);
             return response.data;
-        } catch (error) {
-            errorHandler(error);
-            throw error;
-        }
     }
 
+    /**
+     * Deletes a specific customer by their ID and returns a confirmation message.
+     *
+     * @param {number} id - The ID of the customer to delete.
+     * @returns {Promise<string>} A promise that resolves to a success message as a string.
+     */
     async deleteCustomer(id: number): Promise<string> {
-        try {
             const response = await axios.delete(`/admin/customer/${id}`);
             return response.data;
-        } catch (error) {
-            errorHandler(error);
-            throw error;
-        }
-        ;
     }
 
+    /**
+     * Updates an existing company's details and returns a confirmation message.
+     *
+     * @param {Company} company - The updated Company object with new details.
+     * @returns {Promise<string>} A promise that resolves to a success message as a string.
+     */
     async updateCompany(company: Company): Promise<string> {
-        try {
             const response = await axios.put(`/admin/company/update`, company);
             return response.data;
-        } catch (error) {
-            errorHandler(error);
-            throw error;
-        }
     }
 
+    /**
+     * Updates an existing customer's details and returns a confirmation message.
+     *
+     * @param {Customer} customer - The updated Customer object with new details.
+     * @returns {Promise<string>} A promise that resolves to a success message as a string.
+     */
     async updateCustomer(customer: Customer): Promise<string> {
-        try {
             const response = await axios.put(`/admin/customer/update`, customer);
             return response.data;
-        } catch (error) {
-            errorHandler(error);
-            throw error;
-        }
     }
 
+    /**
+     * Adds a new company to the database and returns a confirmation message.
+     *
+     * @param {Company} company - The new Company object to add.
+     * @returns {Promise<string>} A promise that resolves to a success message as a string.
+     */
     async addCompany(company: Company): Promise<string> {
-        try {
             const response = await axios.post(`/admin/company/add`, company);
             return response.data;
-        } catch (error) {
-            errorHandler(error);
-            throw error;
-        }
-        ;
     }
 
+    /**
+     * Adds a new customer to the database and returns a confirmation message.
+     *
+     * @param {Customer} customer - The new Customer object to add.
+     * @returns {Promise<string>} A promise that resolves to a success message as a string.
+     */
     async addCustomer(customer: Customer): Promise<string> {
-        try {
             const response = await axios.post(`/admin/customer/add`, customer);
             return response.data;
-        } catch (error) {
-            errorHandler(error);
-            throw error;
-        }
-        ;
     }
 }
 const administratorServices = new AdministratorServices();

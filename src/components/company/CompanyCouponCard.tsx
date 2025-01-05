@@ -1,9 +1,9 @@
 import "./Css/CompanyCouponCard.css";
 
-import {Company} from "../../Models/Company.ts";
-import {Coupon} from "../../Models/Coupon.ts";
+import {Company} from "../../models/Company.ts";
+import {Coupon} from "../../models/Coupon.ts";
 import {useNavigate} from "react-router-dom";
-import categoryColors from "../../Models/CategoryEnum.tsx";
+import categoryColors from "../../models/CategoryEnum.tsx";
 
 interface couponProps {
     coupon: Coupon;

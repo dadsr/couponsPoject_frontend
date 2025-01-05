@@ -1,18 +1,19 @@
 import "./Css/CompanyHome.css";
 
-import {useParams} from "react-router-dom";
-import {Company} from "../../Models/Company.ts";
-import {Coupon} from "../../Models/Coupon.ts";
+import {useNavigate, useParams} from "react-router-dom";
+import {Company} from "../../models/Company.ts";
+import {Coupon} from "../../models/Coupon.ts";
 import companyServices from "../../services/CompanyServices.ts";
 import {Filters} from "../filters/Filters.tsx";
 import {CompanyCouponCard} from "./CompanyCouponCard.tsx";
 import {useSidebarContext} from "../../contexts/SidebarContext.tsx";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
+import {useErrorHandler} from "../../errors/errorHandler.ts";
+import ErrorPopup from "../popups/ErrorPop.tsx";
 
 export function CompanyHome(): JSX.Element {
-    const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-
+    const navigate = useNavigate();
     const params = useParams();
     const id = Number(params.id);
 
@@ -21,12 +22,14 @@ export function CompanyHome(): JSX.Element {
     const [companyCoupons, setCompanyCoupons] = useState<Coupon[]>([]);
     const [filteredCompanyCoupons, setFilteredCompanyCoupons] = useState<Coupon[]>([]);
 
-    const { setSidebar } = useSidebarContext();
+    const {setSidebar} = useSidebarContext();
+    const {error, handleError, closeError} = useErrorHandler();
+
 
     const updateSidebar = (comapnyData: Company) => {
         setSidebar({
             buttons: <div>
-                <button type="button">New Coupon</button>
+                <button title="New Coupon" onClick={() => handleNewCoupon(comapnyData)}>New Coupon</button>
             </div>,
             data: (
                 <div>
@@ -51,34 +54,50 @@ export function CompanyHome(): JSX.Element {
                 setCompanyCoupons(compCoupons);
                 setFilteredCompanyCoupons(compCoupons);
             })
+            .catch((err) => {
+                handleError(err);
+            })
             .finally(() => {
                 setIsLoading(false);
             });
-
     }, [id]);
+
+    const handleNewCoupon = useCallback((company: Company) => {
+        const temp = new Coupon(0, "", "", id, "DEFAULT", 0, 0, "", "", "assets/coupon-animated.gif");
+        navigate("/coupon-edit/" + 0, {
+            state: {
+                coupon: temp,
+                company: company,
+                mode: "add"
+            }
+        });
+    }, [id, navigate]);
+
 
     if (isLoading) {
         return <div>Loading...</div>;
     }
 
-    if (!company) {
-        setError("Error: Company not found");
-        return <div>Error: Company not found</div>;
-    }
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
-
 
     return (
         <>
+
             <div className="CompanyHome">
                 <Filters coupons={companyCoupons} setFilteredCoupons={setFilteredCompanyCoupons}/>
                 <br/>
                 <div className="CompanyCoupons">
-                    { filteredCompanyCoupons.map(coupon => ( <CompanyCouponCard key={coupon.id} coupon={coupon} company={company} handleClickMode="NOTHING" />)) }
+                    {filteredCompanyCoupons.map(coupon => ((
+                        company && (<CompanyCouponCard key={coupon.id} coupon={coupon} company={company} handleClickMode="NOTHING"/>)
+                    )))}
                 </div>
             </div>
+
+            <ErrorPopup
+                open={error.show}
+                status={error.status}
+                message={error.message}
+                onClose={closeError}
+            />
         </>
     );
 

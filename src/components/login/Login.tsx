@@ -5,10 +5,14 @@ import {DecodeToken} from "../../services/DecodeToken.ts";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useAuth, UserData} from "../../contexts/AuthContext.tsx";
+import {useErrorHandler} from "../../errors/errorHandler.ts";
+import ErrorPopup from "../popups/ErrorPop.tsx";
 
 export function Login(): JSX.Element {
     const navigate = useNavigate();
-    const { setAuthState } = useAuth();
+    const {setAuthState} = useAuth();
+    const {error, handleError, closeError} = useErrorHandler();
+
 
     const [loginFormData, setLoginFormData] = useState({
         email: "",
@@ -17,7 +21,7 @@ export function Login(): JSX.Element {
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         setLoginFormData((prevData) => ({
             ...prevData,
             [name]: value,
@@ -31,8 +35,8 @@ export function Login(): JSX.Element {
             .then((token) => {
                 const decodedToken = DecodeToken.decode(token) as UserData;
                 console.log(decodedToken);
-                if(decodedToken){
-                    localStorage.setItem("userData",JSON.stringify(decodedToken));
+                if (decodedToken) {
+                    localStorage.setItem("userData", JSON.stringify(decodedToken));
                     setAuthState(decodedToken);
 
                     switch (decodedToken.role) {
@@ -46,32 +50,41 @@ export function Login(): JSX.Element {
                             navigate(`/customer/${decodedToken.id}`);
                             break;
                         default:
-                            console.error("Unknown role");
+                            handleError("Unknown role");
                     }
-                }else
-                    console.error("Unknown user");
-
+                } else
+                    handleError("Unknown user");
             })
-            .catch((error) => console.error("Login failed:", error));
+            .catch((err) => handleError(err))
     };
 
     return (
-        <form onSubmit={submitLogin} className="login-form">
-            <label>Email:</label>
-            <input type="email" name="email" value={loginFormData.email} onChange={handleChange} required/>
+        <>
+            <form onSubmit={submitLogin} className="login-form">
+                <label>Email:</label>
+                <input type="email" name="email" value={loginFormData.email} onChange={handleChange} required/>
 
-            <label>Password:</label>
-            <input type="password" name="password" value={loginFormData.password} onChange={handleChange} required/>
-            <fieldset className="role-radio">
-                <legend>Your Role</legend>
-                <input type="radio" name="role" value="ADMINISTRATOR" checked={loginFormData.role === "ADMINISTRATOR"}
-                       onChange={handleChange}/>Administrator<br/>
-                <input type="radio" name="role" value="COMPANY" checked={loginFormData.role === "COMPANY"}
-                       onChange={handleChange}/>Company<br/>
-                <input type="radio" name="role" value="CUSTOMER" checked={loginFormData.role === "CUSTOMER"}
-                       onChange={handleChange}/>Customer<br/>
-            </fieldset>
-            <button type="submit">Login</button>
-        </form>
+                <label>Password:</label>
+                <input type="password" name="password" value={loginFormData.password} onChange={handleChange} required/>
+                <fieldset className="role-radio">
+                    <legend>Your Role</legend>
+                    <input type="radio" name="role" value="ADMINISTRATOR"
+                           checked={loginFormData.role === "ADMINISTRATOR"}
+                           onChange={handleChange}/>Administrator<br/>
+                    <input type="radio" name="role" value="COMPANY" checked={loginFormData.role === "COMPANY"}
+                           onChange={handleChange}/>Company<br/>
+                    <input type="radio" name="role" value="CUSTOMER" checked={loginFormData.role === "CUSTOMER"}
+                           onChange={handleChange}/>Customer<br/>
+                </fieldset>
+                <button type="submit">Login</button>
+            </form>
+
+            <ErrorPopup
+                open={error.show}
+                status={error.status}
+                message={error.message}
+                onClose={closeError}
+            />
+        </>
     );
 }

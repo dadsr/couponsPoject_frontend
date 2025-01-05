@@ -14,8 +14,8 @@ export const SidebarContext = createContext<SidebarContextProps | undefined>(und
 
 export const SidebarProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [sidebarData, setSidebarData] = useState<SidebarData>({
-        buttons: <div> </div>,
-        data: <div> </div>,
+        buttons: <div></div>,
+        data: <div></div>
     } );
     return (
         <SidebarContext.Provider value={{ data: sidebarData, setSidebar: setSidebarData }}>

@@ -6,6 +6,8 @@ import {Login} from "../login/Login.tsx";
 import {CompanyHome} from "../company/CompanyHome.tsx";
 import {CustomerHome} from "../customer/CustomerHome.tsx";
 import {CompanyCouponEdit} from "../company/CompanyCouponEdit.tsx";
+import {PageNotFound} from "../../errors/PageNotFound.tsx";
+
 
 
 export function Routing(): JSX.Element {
@@ -24,9 +26,7 @@ export function Routing(): JSX.Element {
             <Route path = "/admin/customer-edit/:id" Component={AdminCustomerEdit}/>
             <Route path="/coupon-edit/:id" Component={CompanyCouponEdit}/>
 
-
-
-
+            <Route path="*" Component={PageNotFound} />
         </Routes>
     );
 }

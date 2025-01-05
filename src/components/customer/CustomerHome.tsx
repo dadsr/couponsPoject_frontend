@@ -1,18 +1,18 @@
 import "./Css/CustomerHome.css"
 
-import {Coupon} from "../../Models/Coupon.ts";
+import {Coupon} from "../../models/Coupon.ts";
 import {useParams} from "react-router-dom";
 import {CustomerCouponCard} from "./CustomerCouponCard.tsx";
-import {Customer} from "../../Models/Customer.ts";
-import {useEffect, useState} from "react";
+import {Customer} from "../../models/Customer.ts";
 import customerServices from "../../services/CustomerServices.ts";
 import {Filters} from "../filters/Filters.tsx";
 import {useSidebarContext} from "../../contexts/SidebarContext.tsx";
-
+import {useErrorHandler} from "../../errors/errorHandler.ts";
+import ErrorPopup from "../popups/ErrorPop.tsx";
+import {useEffect, useState} from "react";
 
 
 export function CustomerHome(): JSX.Element {
-    const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const params = useParams();
@@ -26,7 +26,9 @@ export function CustomerHome(): JSX.Element {
     const [filteredCustomerCoupons, setFilteredCustomerCoupons] = useState<Coupon[]>([]);
     const [filteredPurchaseCoupons, setFilteredPurchaseCoupons] = useState<Coupon[]>([]);
 
-    const { setSidebar } = useSidebarContext();
+    const {setSidebar} = useSidebarContext();
+    const {error, handleError, closeError} = useErrorHandler();
+
 
     const updateSidebar = (customerData: Customer) => {
         setSidebar({
@@ -43,8 +45,6 @@ export function CustomerHome(): JSX.Element {
 
     useEffect(() => {
         setIsLoading(true);
-        setError(null);
-
         Promise.all([
             customerServices.getCustomer(id),
             customerServices.getCoupons(id),
@@ -56,9 +56,10 @@ export function CustomerHome(): JSX.Element {
                 setCustomerCoupons(couponsData);
                 setPurchaseCoupons(purchaseData);
                 //for updating coupons list before and after purchase
-                setFilteredCustomerCoupons(()=> [...couponsData]);
-                setFilteredPurchaseCoupons(()=> [...purchaseData]);
+                setFilteredCustomerCoupons(() => [...couponsData]);
+                setFilteredPurchaseCoupons(() => [...purchaseData]);
             })
+            .catch((err) => handleError(err))
             .finally(() => {
                 setIsLoading(false);
             });
@@ -70,7 +71,7 @@ export function CustomerHome(): JSX.Element {
 
         if (!purchasedCoupon) {
             console.error("Coupon not found in purchaseCoupons");
-            setError("Coupon not found in purchaseCoupons");
+            handleError("Coupon not found in purchaseCoupons");
             return;
         }
         purchasedCoupon.amount--;
@@ -86,24 +87,14 @@ export function CustomerHome(): JSX.Element {
             return updated;
         });
 
-        setFilteredCustomerCoupons((prev) => [...prev, { ...purchasedCoupon }]);
+        setFilteredCustomerCoupons((prev) => [...prev, {...purchasedCoupon}]);
         setFilteredPurchaseCoupons((prev) => prev.filter(coupon => coupon.id !== couponId));
-
-        if (error) {
-            console.error("XXX");
-            return;
-        }
     };
 
     if (isLoading) {
         return <div>Loading...</div>;
     }
 
-    if (!customer) {
-        setError("Error: Customer not found");
-        return <div>Error: Customer not found</div>;
-
-    }
 
     return (
         <>
@@ -116,9 +107,9 @@ export function CustomerHome(): JSX.Element {
                                 <CustomerCouponCard
                                     key={coupon.id}
                                     coupon={coupon}
-                                    customer={customer}
+                                    customer={customer!}
                                     handleClickMode="NOTHING"
-                                    setError={setError}
+                                    setError={handleError}
                                 />))
                         )
                         : (<div>No Coupons Available For You</div>)
@@ -136,16 +127,23 @@ export function CustomerHome(): JSX.Element {
                                 <CustomerCouponCard
                                     key={coupon.id}
                                     coupon={coupon}
-                                    customer={customer}
+                                    customer={customer!}
                                     handleClickMode="PURCHASE"
                                     onSuccess={handlePurchaseSuccess}
-                                    setError={setError}
+                                    setError={handleError}
                                 />))
                         )
                         : (<div>No Coupons Available For Purchase</div>)
                     }
                 </div>
             </div>
+
+            <ErrorPopup
+                open={error.show}
+                status={error.status}
+                message={error.message}
+                onClose={closeError}
+            />
         </>
     )
 }

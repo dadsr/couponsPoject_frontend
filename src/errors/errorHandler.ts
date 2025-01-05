@@ -1,31 +1,42 @@
 import {AxiosError} from "axios";
+import {useState} from "react";
 
-export const errorHandler = (error: any)=>{
-    if(error instanceof AxiosError) {
-        if (error.response) {
-            switch (error.response.status) {
-                case 404:
-                    throw new Error("Resource not found");
-                case 403:
-                    throw new Error("Access denied. You do not have permission.");
-                case 500:
-                    throw new Error("Internal server error. Please try again later.");
-                default:
-                    throw new Error(error.response.data || "An unexpected error occurred");
+export const useErrorHandler = () => {
+    const [error, setError] = useState({show: false, status: 0, message: ""});
+
+    const handleError = (error: any) => {
+        if (error instanceof AxiosError) {
+            if (error.response) {
+                switch (error.response.status) {
+                    case 404:
+                        setError({show: true, status: 404, message: "Resource not found"});
+                        break;
+                    case 403:
+                        setError({show: true, status: 403, message: "Access denied. You do not have permission."});
+                        break;
+                    case 500:
+                        setError({show: true, status: 500, message: "Internal server error. Please try again later."});
+                        break;
+                    default:
+                        setError({
+                            show: true,
+                            status: error.response.status,
+                            message: error.response.data || "An unexpected error occurred"
+                        });
+                }
+            } else if (error.request) {
+                setError({
+                    show: true,
+                    status: 0,
+                    message: "No response from the server. Please check your connection."
+                });
+            } else {
+                setError({show: true, status: 0, message: "An unexpected error occurred."});
             }
-        } else if (error.request) {
-            // Request was made but no response was received
-            throw new Error("No response from the server. Please check your connection.");
-        } else
-            // Something else caused the error
-            throw new Error("An unexpected error occurred.");
-    }
-    //todo
-    //     else
-    //        toast.error(error.message);
-    //
-    // else if(typeof(error) === 'string')
-    //   //  toast.error(error);
-    // else
-    //   //  toast.error(error.message);
-}
+        }
+    };
+
+    const closeError = () => setError({show: false, status: 0, message: ""});
+
+    return {error, handleError, closeError};
+};

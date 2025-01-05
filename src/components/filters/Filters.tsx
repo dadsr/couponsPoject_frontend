@@ -1,8 +1,8 @@
 import './Filters.css';
 
-import {Coupon} from "../../Models/Coupon.ts";
-import {useState} from "react";
-import CategoryColors from "../../Models/CategoryEnum.tsx";
+import {Coupon} from "../../models/Coupon.ts";
+import {useEffect, useState} from "react";
+import CategoryColors from "../../models/CategoryEnum.tsx";
 
 
 interface SetProps {
@@ -14,7 +14,14 @@ export function Filters(props: SetProps): JSX.Element {
     const [selectedFilter, setSelectedFilter] = useState("All");
     const [maxPrice, setMaxPrice] = useState<number | undefined>();
     const [category, setCategory] = useState<string>("DEFAULT");
+    const [maxRange, setMaxRange] = useState<number>(1000);
+    const [minRange, setMinRange] = useState<number>(0);
 
+
+    useEffect(() => {
+        setMaxRange(Math.max(...props.coupons.map(coupon => coupon.price)));
+        setMinRange(Math.min(...props.coupons.map(coupon => coupon.price)));
+    }, []);
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedFilter(event.target.value);
@@ -93,10 +100,20 @@ export function Filters(props: SetProps): JSX.Element {
                 </select>
             )}
             {selectedFilter === "ByMaxPrice" && (
-                <input type="number" placeholder="Enter maximum price" value={maxPrice || ""} onChange={handleMaxPriceChange}/>
-            )}
+                <>
+                    <span>Min: {minRange}</span>
+                    <input type="range" min={minRange} max={maxRange} value={maxPrice || 0} onChange={handleMaxPriceChange}/>
+                    <span>Max: {maxRange}</span>
+                    <br/><span>max price: {maxPrice}</span>
+                </>
+
+                )
+
+
+            }
         </div>
-    );
+    )
+        ;
 
 //
 }
