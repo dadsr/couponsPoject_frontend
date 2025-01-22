@@ -1,3 +1,13 @@
+ציון: 100 / 100
+
+צד לקוח:
+
+הקוד מסודר בצורה מצוינת וברורה וכל מאפייני האתר קיימים ועובדים כמו שצריך.עבודה יפה עם context ומנהל שגיאות ושוב אחלה תיעוד.
+
+עבודה מצוינת, רואים שהשקעת (למרות שלא היית מרוצה) ואני בטוח שתשפר את הנראות בלי בעיה – המון בהצלחה!
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
