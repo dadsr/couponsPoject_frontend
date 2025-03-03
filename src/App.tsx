@@ -1,10 +1,10 @@
-import './App.css'
 import {AuthProvider} from "./contexts/AuthContext.tsx";
-import {BrowserRouter} from 'react-router-dom'
+import {SidebarProvider} from "./contexts/SidebarContext.tsx";
+import {BrowserRouter} from "react-router-dom";
 import {Routing} from "./components/Routing/Routing.tsx";
 import {Header} from "./components/Header/Header.tsx";
 import Sidebar from "./components/Sidebar/Sidebar.tsx";
-import {SidebarProvider} from "./contexts/SidebarContext.tsx";
+
 
 function App() {
     return (
